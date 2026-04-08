@@ -1,37 +1,30 @@
+const yearNode = document.getElementById("year");
+if (yearNode) {
+  yearNode.textContent = String(new Date().getFullYear());
+}
+
 const root = document.documentElement;
-const toggleBtn = document.getElementById("themeToggle");
-const yearEl = document.getElementById("year");
-const THEME_KEY = "hx-theme";
+const themeToggle = document.getElementById("theme-toggle");
+const savedTheme = localStorage.getItem("theme");
 
 function applyTheme(theme) {
-  if (theme === "light") {
-    root.setAttribute("data-theme", "light");
-  } else {
-    root.removeAttribute("data-theme");
+  root.setAttribute("data-theme", theme);
+  if (themeToggle) {
+    themeToggle.textContent = theme === "dark" ? "Light" : "Dark";
   }
 }
 
-function initTheme() {
-  const saved = localStorage.getItem(THEME_KEY);
-  if (saved === "light" || saved === "dark") {
-    applyTheme(saved);
-    return;
-  }
-  const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-  applyTheme(prefersLight ? "light" : "dark");
+if (savedTheme === "light" || savedTheme === "dark") {
+  applyTheme(savedTheme);
+} else {
+  applyTheme("dark");
 }
 
-if (toggleBtn) {
-  toggleBtn.addEventListener("click", () => {
-    const isLight = root.getAttribute("data-theme") === "light";
-    const next = isLight ? "dark" : "light";
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const current = root.getAttribute("data-theme") || "dark";
+    const next = current === "dark" ? "light" : "dark";
     applyTheme(next);
-    localStorage.setItem(THEME_KEY, next);
+    localStorage.setItem("theme", next);
   });
 }
-
-if (yearEl) {
-  yearEl.textContent = String(new Date().getFullYear());
-}
-
-initTheme();

@@ -1,87 +1,179 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Haoran (Haron) Xu 的个人主页。聚焦 AI、工程与学习成长。"
+      content="Academic homepage of Haoran (Haron) Xu. Research on foundations of generative modeling under structured, low-data regimes."
     />
-    <title>Haoran (Haron) Xu | Personal Site</title>
+    <title>Haoran (Haron) Xu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#top">HX</a>
-      <nav class="nav">
-        <a href="#about">关于</a>
-        <a href="#projects">项目</a>
-        <a href="#contact">联系</a>
-      </nav>
-      <button id="themeToggle" class="theme-toggle" type="button" aria-label="切换主题">
-        <span aria-hidden="true">◐</span>
-      </button>
+      <div class="container nav">
+        <a class="brand" href="#top">Haoran (Haron) Xu</a>
+        <div class="nav-right">
+          <nav aria-label="Primary">
+            <ul class="nav-links">
+              <li><a href="#about">About</a></li>
+              <li><a href="#research">Research</a></li>
+              <li><a href="#news">News</a></li>
+              <li><a href="#publications">Publications</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">
+            Light
+          </button>
+        </div>
+      </div>
     </header>
 
     <main id="top">
-      <section class="hero">
-        <p class="tag">Personal Website</p>
-        <h1>Haoran (Haron) Xu</h1>
-        <p class="subtitle">
-          你好，我是 Haron。欢迎来到我的个人主页，这里会持续记录我的学习、项目与成长。
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#projects">查看项目</a>
-          <a class="btn btn-ghost" href="#contact">联系我</a>
+      <section class="hero container">
+        <div class="hero-layout">
+          <div class="hero-main">
+            <p class="kicker">Academic Homepage</p>
+            <h1>Haoran (Haron) Xu</h1>
+            <p class="lead">
+              I study the foundations of generative modeling under structured, low-data
+              regimes, with a focus on challenging trajectory-based paradigms and
+              developing structure-aligned alternatives.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#research">View Research</a>
+              <a class="btn btn-secondary" href="#contact">Get in Touch</a>
+            </div>
+          </div>
+          <aside class="profile-card" aria-label="Profile summary">
+            <img
+              class="avatar"
+              src="https://via.placeholder.com/240x240.png?text=Haron+Xu"
+              alt="Portrait of Haoran (Haron) Xu"
+            />
+            <h3>Haoran (Haron) Xu</h3>
+            <p class="profile-role">Generative Modeling Researcher</p>
+            <ul class="profile-meta">
+              <li>Focus: Structured, low-data regimes</li>
+              <li>Theme: Structure-aligned alternatives</li>
+              <li>Current: Personal academic website</li>
+            </ul>
+            <div class="profile-links">
+              <a href="#" aria-label="Google Scholar">Scholar</a>
+              <a href="#" aria-label="GitHub profile">GitHub</a>
+              <a href="#" aria-label="Curriculum vitae">CV</a>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section id="about" class="section">
-        <h2>关于我</h2>
-        <p>
-          我专注于 AI 与软件工程方向，喜欢把想法快速落地成可用产品。这个站点采用模块化结构，后续可以方便扩展博客、作品集、英文页等内容。
-        </p>
+      <section id="about" class="section container">
+        <h2>About</h2>
+        <div class="card">
+          <p>
+            I am Haoran (Haron) Xu, interested in principled generative modeling
+            when data are scarce but structure is rich. My work asks whether
+            trajectory-based assumptions are always necessary, and explores
+            alternatives that better align model design with underlying structure.
+          </p>
+          <p class="muted">
+            You can extend this section with your current affiliation, advisor,
+            and short biography.
+          </p>
+        </div>
       </section>
 
-      <section id="projects" class="section">
-        <h2>项目</h2>
-        <div class="cards">
+      <section id="research" class="section container">
+        <h2>Research Interests</h2>
+        <div class="grid grid-2">
           <article class="card">
-            <h3>Project One</h3>
-            <p>在这里放你的代表项目简介、技术栈与亮点。</p>
-            <a href="#" aria-label="Project One 链接">查看详情</a>
+            <h3>Foundations of Generative Modeling</h3>
+            <p>
+              Theoretical and conceptual questions about what makes generative
+              models robust, interpretable, and data-efficient under constraints.
+            </p>
           </article>
           <article class="card">
-            <h3>Project Two</h3>
-            <p>可替换为课程项目、开源贡献或实验作品。</p>
-            <a href="#" aria-label="Project Two 链接">查看详情</a>
+            <h3>Structured, Low-Data Regimes</h3>
+            <p>
+              Learning with limited samples by explicitly leveraging latent
+              structure, compositionality, and inductive bias.
+            </p>
           </article>
           <article class="card">
-            <h3>Project Three</h3>
-            <p>建议每个项目保持 2-3 行描述，突出价值。</p>
-            <a href="#" aria-label="Project Three 链接">查看详情</a>
+            <h3>Beyond Trajectory-Based Paradigms</h3>
+            <p>
+              Re-evaluating trajectory-centric assumptions and identifying cases
+              where they are suboptimal for inference or generation.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Structure-Aligned Alternatives</h3>
+            <p>
+              Designing alternatives that align model mechanics with known
+              structure to improve sample efficiency and reliability.
+            </p>
           </article>
         </div>
       </section>
 
-      <section id="contact" class="section">
-        <h2>联系</h2>
-        <ul class="contact-list">
-          <li>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></li>
-          <li>GitHub: <a href="https://github.com/" target="_blank" rel="noreferrer">github.com/your-id</a></li>
-          <li>LinkedIn: <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">linkedin.com/in/your-id</a></li>
-        </ul>
+      <section id="news" class="section container">
+        <h2>News</h2>
+        <div class="card">
+          <ul class="timeline" id="news-list">
+            <li>
+              <span class="date">2026-04</span>
+              <span>Website launched.</span>
+            </li>
+            <li>
+              <span class="date">2026-03</span>
+              <span>Started exploring structure-aligned alternatives in low-data settings.</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="publications" class="section container">
+        <h2>Selected Publications</h2>
+        <div class="card">
+          <p class="muted">
+            Add your papers here. Suggested format:
+            <em>Author(s). Title. Venue, Year.</em>
+          </p>
+          <ol class="pub-list">
+            <li>
+              <strong>Placeholder</strong> — Your first paper title. <em>Venue</em>, 2026.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="contact" class="section container">
+        <h2>Contact</h2>
+        <div class="card">
+          <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+          <p>
+            Links:
+            <a href="#" aria-label="Google Scholar">Scholar</a>
+            · <a href="#" aria-label="GitHub profile">GitHub</a>
+            · <a href="#" aria-label="CV">CV</a>
+          </p>
+        </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>© <span id="year"></span> Haoran (Haron) Xu. All rights reserved.</p>
+      <div class="container">
+        <small>© <span id="year"></span> Haoran (Haron) Xu</small>
+      </div>
     </footer>
 
     <script src="./script.js"></script>

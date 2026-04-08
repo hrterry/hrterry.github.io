@@ -1,31 +1,43 @@
-# Haoran (Haron) Xu - Personal Homepage
+# Haoran (Haron) Xu - Academic Homepage
 
-一个简洁、可扩展、可直接部署到 GitHub Pages 的静态个人主页模板。
+A minimal, elegant, and extensible static academic website that is ready for GitHub Pages deployment.
 
-## 本地预览
+## Files
 
-直接双击 `index.html` 即可打开，或使用任意静态服务器进行预览。
+- `index.html`: Main page structure and content
+- `style.css`: Visual style (clean, modern, responsive)
+- `script.js`: Small utility script (footer year)
 
-## GitHub Pages 部署
+## Quick Customization
 
-1. 将仓库推送到 GitHub（建议仓库名：`<your-github-id>.github.io`）。
-2. 进入仓库 `Settings` -> `Pages`。
-3. 在 `Build and deployment` 中选择：
-   - `Source`: `Deploy from a branch`
-   - `Branch`: `main` / `root`
-4. 保存后等待 1-2 分钟，访问：
-   - `https://<your-github-id>.github.io/`
+Edit `index.html` and update:
 
-## 你最常改的地方
+1. `About` section (affiliation, biography)
+2. `Research Interests` cards
+3. `News` timeline
+4. `Selected Publications`
+5. `Contact` email and profile links
 
-- 主页标题与简介：`index.html`
-- 主题色与版式：`style.css`
-- 交互行为（暗黑/亮色切换）：`script.js`
-- 联系方式与项目链接：`index.html` 的 `#projects`、`#contact` 区域
+## Deploy on GitHub Pages
 
-## 扩展建议
+For a user site (recommended):
 
-- 新增 `blog.html`、`projects.html` 多页面
-- 接入 Google Analytics / Umami
-- 添加 `assets/` 存放头像、项目封面、简历 PDF
-- 增加中英双语切换
+1. Repository name should be `<your-github-username>.github.io`
+2. Push these files to the `main` branch
+3. In GitHub repository settings:
+   - Go to **Pages**
+   - Build and deployment -> Source: **Deploy from a branch**
+   - Branch: **main** / root
+4. Wait 1-2 minutes and open:
+   - `https://<your-github-username>.github.io`
+
+For a project site:
+
+- URL becomes `https://<your-github-username>.github.io/<repo-name>/`
+
+## Suggested Next Steps
+
+- Add a headshot image and short one-line subtitle
+- Add paper links (PDF / code / slides)
+- Add CV download link
+- Optionally add Google Analytics or Plausible
