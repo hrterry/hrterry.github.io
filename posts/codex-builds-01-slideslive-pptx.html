@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Codex Builds #1：用 Codex 把没有下载按钮的 SlidesLive 幻灯片重建成 PPTX，并沉淀成可复用 skill。"
+    />
+    <title>用 Codex 把 SlidesLive 隐藏幻灯片重建成 PPTX | hrterry</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="../">hrterry</a>
+        <nav aria-label="Primary">
+          <a href="../">Blog</a>
+          <a href="https://github.com/hrterry">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="article container">
+      <a class="back-link" href="../">← 返回首页</a>
+
+      <article class="article-card">
+        <p class="post-meta">2026-05-26 · Codex Builds #1</p>
+        <h1>用 Codex 把 SlidesLive 隐藏幻灯片重建成 PPTX</h1>
+
+        <p>
+          这是这个 blog 的第一篇文章。我想把这里写成一个小系列：
+          记录我如何用 Codex 完成一些真实、具体、略微麻烦的事情，
+          并在最后把流程沉淀成可以复用的 skill。
+        </p>
+
+        <p>
+          第一篇从一个很朴素的需求开始：我想下载一个 SlidesLive 上的讲座 PPT。
+          页面本身没有下载按钮，只有在线播放。手动截图当然可以，但那不优雅，
+          也很难复用。所以我让 Codex 一起探索页面结构，找到实际加载的幻灯片资源，
+          再把它重建成 PPTX。
+        </p>
+
+        <h2>目标</h2>
+
+        <p>输入是一个 SlidesLive 页面：</p>
+
+        <pre><code>https://slideslive.com/38935785/offline-reinforcement-learning-from-algorithms-to-practical-challenges</code></pre>
+
+        <p>我希望得到：</p>
+
+        <ul>
+          <li>一个可以本地打开的 PPTX</li>
+          <li>尽量高清的幻灯片画面</li>
+          <li>如果原视频里每点一次只多一点内容，就把这些逐步 reveal 帧合并掉</li>
+          <li>最后把方法沉淀成 Codex skill，方便下次直接复用</li>
+        </ul>
+
+        <h2>第一步：找到播放器真正加载的东西</h2>
+
+        <p>
+          SlidesLive 的普通页面不一定直接暴露幻灯片资源，但它有一个 embed 页面：
+        </p>
+
+        <pre><code>https://slideslive.com/embed/presentation/38935785</code></pre>
+
+        <p>
+          抓这个页面时，可以看到播放器预加载了一个关键文件：
+        </p>
+
+        <pre><code>https://s.slideslive.com/38935785/v7/slides.json?1650711788</code></pre>
+
+        <p>
+          这个 <code>slides.json</code> 里列出了每一帧幻灯片的名字和时间戳。
+          例如：
+        </p>
+
+        <pre><code>{
+  "type": "image",
+  "image": {
+    "name": "6fbe2879-a5e1-4be8-8b66-5a850adfea6e__0-0002"
+  },
+  "time": 0
+}</code></pre>
+
+        <p>
+          同一个 embed 页面里还有两个播放器配置也很关键：
+        </p>
+
+        <pre><code>gon.hosts.slideslive_on_the_fly_resized_slides_host = "slideslive-slides.b-cdn.net"
+gon.use_bunny_cdn_for_player_image_slides = true</code></pre>
+
+        <p>
+          这说明播放器没有神秘魔法，它只是根据 JSON 里的图片名拼 CDN URL。
+        </p>
+
+        <h2>第二步：拼出图片 URL</h2>
+
+        <p>播放器脚本里的规则大概是：</p>
+
+        <pre><code>https://{slide_host}/{presentation_id}/slides/original/{image.name}.png?class={quality}</code></pre>
+
+        <p>实际例子：</p>
+
+        <pre><code>https://slideslive-slides.b-cdn.net/38935785/slides/original/6fbe2879-a5e1-4be8-8b66-5a850adfea6e__0-0002.png?class=2160</code></pre>
+
+        <p>
+          一个坑是：<code>slides.json</code> 里虽然有
+          <code>big</code> / <code>medium</code>，但 CDN 实际接受的是播放器内部使用的数字尺寸，
+          比如 <code>540</code>、<code>1080</code>、<code>2160</code>。
+          请求 <code>class=big</code> 反而可能 403。
+        </p>
+
+        <h2>第三步：下载图片并重建 PPTX</h2>
+
+        <p>
+          下载图片后，重建 PPTX 这一步很直接：每张图片占一页宽屏幻灯片。
+          用 <code>pptxgenjs</code> 就够了。
+        </p>
+
+        <pre><code>const pptx = new PptxGenJS();
+pptx.defineLayout({ name: "CUSTOM_WIDE", width: 13.333333, height: 7.5 });
+pptx.layout = "CUSTOM_WIDE";
+
+for (const file of slideImages) {
+  const slide = pptx.addSlide();
+  slide.background = { color: "FFFFFF" };
+  slide.addImage({ path: file, x: 0, y: 0, w: 13.333333, h: 7.5 });
+}</code></pre>
+
+        <p>
+          这一步得到的是视觉保真的 PPTX，但文本不可编辑。原因很简单：
+          SlidesLive 暴露的是 raster image，而不是原始的 PowerPoint 源文件。
+        </p>
+
+        <h2>第四步：合并逐步 reveal 帧</h2>
+
+        <p>
+          讲座幻灯片经常是这样的：第一页有标题，下一页多一个 bullet，
+          再下一页又多一个公式。直接导出会得到很多“半成品帧”。
+          对复习和阅读来说，通常只需要最后那张信息完整的页。
+        </p>
+
+        <p>
+          我们做了一个简单的图像差分规则。把相邻两页缩小后比较像素，
+          把差异分成三类：
+        </p>
+
+        <ul>
+          <li><code>added</code>：前一页接近空白，后一页出现内容</li>
+          <li><code>removed</code>：前一页有内容，后一页变空白</li>
+          <li><code>modified</code>：两边都有内容但颜色差异明显</li>
+        </ul>
+
+        <p>
+          如果差异主要是 <code>added</code>，同时删除和修改很少，
+          就认为后一页是在前一页基础上继续增加信息，于是丢弃前一页。
+        </p>
+
+        <p>
+          这次结果是：原始抓取 637 张图片帧，合并后剩下 97 页。
+          这更接近一个适合阅读的讲义版 PPT。
+        </p>
+
+        <h2>最后：沉淀成 skill</h2>
+
+        <p>
+          我最喜欢这次工作的地方，不是成功下载了一个 PPT，
+          而是最后把过程变成了一个可复用的 Codex skill：
+        </p>
+
+        <p>
+          <a href="../skills/slideslive-pptx/SKILL.md">slideslive-pptx / SKILL.md</a>
+        </p>
+
+        <p>这个 skill 里包括：</p>
+
+        <ul>
+          <li>如何从 SlidesLive URL 找 embed 页面</li>
+          <li>如何定位 <code>slides.json</code></li>
+          <li>如何按播放器规则拼 CDN URL</li>
+          <li>如何重建 PPTX</li>
+          <li>如何合并 incremental reveal 帧</li>
+        </ul>
+
+        <p>同时附了两个脚本：</p>
+
+        <ul>
+          <li>
+            <a href="../skills/slideslive-pptx/scripts/rebuild_slideslive_pptx.mjs">
+              rebuild_slideslive_pptx.mjs
+            </a>
+          </li>
+          <li>
+            <a href="../skills/slideslive-pptx/scripts/merge_reveal_frames.mjs">
+              merge_reveal_frames.mjs
+            </a>
+          </li>
+        </ul>
+
+        <h2>小结</h2>
+
+        <p>
+          这次让我觉得 Codex 很适合做一种“可沉淀的探索”：先帮我搞定一次具体问题，
+          然后把路径、坑、脚本和判断标准都保存下来。下一次遇到类似页面，
+          就不再需要重新摸索。
+        </p>
+
+        <blockquote>
+          这个系列后面会继续记录：我用 Codex 做成什么，以及最后能沉淀出什么可复用的 skill。
+        </blockquote>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <span>© <span id="year"></span> hrterry</span>
+      </div>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

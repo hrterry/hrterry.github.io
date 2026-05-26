@@ -1,178 +1,80 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="zh-CN" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Academic homepage of Haoran (Haron) Xu. Research on foundations of generative modeling under structured, low-data regimes."
+      content="hrterry 的个人 blog，记录使用 Codex 完成具体任务，并把过程沉淀成可复用 skills。"
     />
-    <title>Haoran (Haron) Xu</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap"
-      rel="stylesheet"
-    />
+    <title>hrterry | Codex Builds</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="#top">Haoran (Haron) Xu</a>
-        <div class="nav-right">
-          <nav aria-label="Primary">
-            <ul class="nav-links">
-              <li><a href="#about">About</a></li>
-              <li><a href="#research">Research</a></li>
-              <li><a href="#news">News</a></li>
-              <li><a href="#publications">Publications</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </nav>
-          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">
-            Light
-          </button>
-        </div>
+        <a class="brand" href="./">hrterry</a>
+        <nav aria-label="Primary">
+          <a href="./">Blog</a>
+          <a href="https://github.com/hrterry">GitHub</a>
+        </nav>
       </div>
     </header>
 
-    <main id="top">
+    <main>
       <section class="hero container">
-        <div class="hero-layout">
-          <div class="hero-main">
-            <p class="kicker">Academic Homepage</p>
-            <h1>Haoran (Haron) Xu</h1>
-            <p class="lead">
-              I study the foundations of generative modeling under structured, low-data
-              regimes, with a focus on challenging trajectory-based paradigms and
-              developing structure-aligned alternatives.
+        <p class="eyebrow">Codex Builds</p>
+        <h1>用 Codex 做成一些真实的小东西</h1>
+        <p class="lead">
+          这个 blog 记录我如何把一个模糊需求交给 Codex，一起探索、实现、验证，
+          最后把可复用的工作流沉淀成 skill。第一篇从 SlidesLive 抓取隐藏幻灯片并重建 PPTX 开始。
+        </p>
+      </section>
+
+      <section class="container section">
+        <div class="section-heading">
+          <h2>文章</h2>
+          <p>每篇文章都尽量附上可复用代码或 skill。</p>
+        </div>
+
+        <article class="post-card">
+          <div>
+            <p class="post-meta">2026-05-26 · Codex Builds #1</p>
+            <h3>
+              <a href="./posts/codex-builds-01-slideslive-pptx.html">
+                用 Codex 把 SlidesLive 隐藏幻灯片重建成 PPTX
+              </a>
+            </h3>
+            <p>
+              从没有下载按钮的 SlidesLive 页面出发，定位隐藏的
+              <code>slides.json</code>，批量下载高清图片帧，重建 PPTX，
+              再压缩逐步 reveal 帧，最后沉淀成可复用的
+              <code>slideslive-pptx</code> skill。
             </p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="#research">View Research</a>
-              <a class="btn btn-secondary" href="#contact">Get in Touch</a>
-            </div>
           </div>
-          <aside class="profile-card" aria-label="Profile summary">
-            <img
-              class="avatar"
-              src="https://via.placeholder.com/240x240.png?text=Haron+Xu"
-              alt="Portrait of Haoran (Haron) Xu"
-            />
-            <h3>Haoran (Haron) Xu</h3>
-            <p class="profile-role">Generative Modeling Researcher</p>
-            <ul class="profile-meta">
-              <li>Focus: Structured, low-data regimes</li>
-              <li>Theme: Structure-aligned alternatives</li>
-              <li>Current: Personal academic website</li>
-            </ul>
-            <div class="profile-links">
-              <a href="#" aria-label="Google Scholar">Scholar</a>
-              <a href="#" aria-label="GitHub profile">GitHub</a>
-              <a href="#" aria-label="Curriculum vitae">CV</a>
-            </div>
-          </aside>
-        </div>
+          <a class="read-link" href="./posts/codex-builds-01-slideslive-pptx.html">阅读</a>
+        </article>
       </section>
 
-      <section id="about" class="section container">
-        <h2>About</h2>
-        <div class="card">
+      <section class="container section">
+        <div class="section-heading">
+          <h2>Skills</h2>
+          <p>文章中用到的 Codex skill 会放在这里，方便复制和改造。</p>
+        </div>
+
+        <div class="resource-card">
+          <h3>slideslive-pptx</h3>
           <p>
-            I am Haoran (Haron) Xu, interested in principled generative modeling
-            when data are scarce but structure is rich. My work asks whether
-            trajectory-based assumptions are always necessary, and explores
-            alternatives that better align model design with underlying structure.
+            抓取 SlidesLive 隐藏图片帧，重建 PPTX，并可选合并逐步动画帧。
           </p>
-          <p class="muted">
-            You can extend this section with your current affiliation, advisor,
-            and short biography.
-          </p>
-        </div>
-      </section>
-
-      <section id="research" class="section container">
-        <h2>Research Interests</h2>
-        <div class="grid grid-2">
-          <article class="card">
-            <h3>Foundations of Generative Modeling</h3>
-            <p>
-              Theoretical and conceptual questions about what makes generative
-              models robust, interpretable, and data-efficient under constraints.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Structured, Low-Data Regimes</h3>
-            <p>
-              Learning with limited samples by explicitly leveraging latent
-              structure, compositionality, and inductive bias.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Beyond Trajectory-Based Paradigms</h3>
-            <p>
-              Re-evaluating trajectory-centric assumptions and identifying cases
-              where they are suboptimal for inference or generation.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Structure-Aligned Alternatives</h3>
-            <p>
-              Designing alternatives that align model mechanics with known
-              structure to improve sample efficiency and reliability.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section id="news" class="section container">
-        <h2>News</h2>
-        <div class="card">
-          <ul class="timeline" id="news-list">
-            <li>
-              <span class="date">2026-04</span>
-              <span>Website launched.</span>
-            </li>
-            <li>
-              <span class="date">2026-03</span>
-              <span>Started exploring structure-aligned alternatives in low-data settings.</span>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="publications" class="section container">
-        <h2>Selected Publications</h2>
-        <div class="card">
-          <p class="muted">
-            Add your papers here. Suggested format:
-            <em>Author(s). Title. Venue, Year.</em>
-          </p>
-          <ol class="pub-list">
-            <li>
-              <strong>Placeholder</strong> — Your first paper title. <em>Venue</em>, 2026.
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <section id="contact" class="section container">
-        <h2>Contact</h2>
-        <div class="card">
-          <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-          <p>
-            Links:
-            <a href="#" aria-label="Google Scholar">Scholar</a>
-            · <a href="#" aria-label="GitHub profile">GitHub</a>
-            · <a href="#" aria-label="CV">CV</a>
-          </p>
+          <a href="./skills/slideslive-pptx/SKILL.md">查看 SKILL.md</a>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="container">
-        <small>© <span id="year"></span> Haoran (Haron) Xu</small>
+        <span>© <span id="year"></span> hrterry</span>
       </div>
     </footer>
 
