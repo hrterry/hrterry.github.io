@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Codex Builds 02: switching Codex between the official login quota and a custom API profile without repeatedly editing config files."
+    />
+    <title>Switching Codex between login quota and a custom API | HaoRan Xu</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="../">HaoRan Xu</a>
+        <nav aria-label="Primary">
+          <a href="../#writing">Writing</a>
+          <a href="../#skills">Skills</a>
+          <a href="https://github.com/hrterry">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="article container">
+      <a class="back-link" href="../">Back to home</a>
+
+      <article class="article-card">
+        <p class="post-meta">May 26, 2026 &middot; Codex Builds 02</p>
+        <h1>Switching Codex between login quota and a custom API</h1>
+
+        <p class="article-lead">
+          I wanted a boring switch: use Codex with the official login quota most
+          of the time, then manually switch to a custom API profile when needed,
+          without re-entering provider settings every time.
+        </p>
+
+        <p>
+          The useful constraint is that both modes should share the same local
+          history. I do not want two separate Codex homes, two sets of sessions,
+          or a migration step every time I change providers. The switch should
+          only change how future requests are routed.
+        </p>
+
+        <h2>The key idea</h2>
+
+        <p>
+          Codex reads its active configuration from one file under the Codex home:
+        </p>
+
+        <pre><code>%USERPROFILE%\.codex\config.toml</code></pre>
+
+        <p>
+          Instead of editing that file by hand, keep two sanitized profile
+          copies:
+        </p>
+
+        <pre><code>%USERPROFILE%\.codex\profiles\official.config.toml
+%USERPROFILE%\.codex\profiles\custom-api.config.toml</code></pre>
+
+        <p>
+          Switching profiles is just copying one of those files over the active
+          <code>config.toml</code>. The rest of the Codex home remains untouched:
+        </p>
+
+        <pre><code>%USERPROFILE%\.codex\sessions
+%USERPROFILE%\.codex\session_index.jsonl
+%USERPROFILE%\.codex\history.jsonl</code></pre>
+
+        <p>
+          That is why chat history can stay shared. The switch changes provider
+          configuration, not the directory where Codex stores conversations.
+        </p>
+
+        <h2>Preparing the profiles</h2>
+
+        <p>
+          First, save the currently working official-login configuration as the
+          official profile:
+        </p>
+
+        <pre><code>New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.codex\profiles"
+Copy-Item "$env:USERPROFILE\.codex\config.toml" `
+  "$env:USERPROFILE\.codex\profiles\official.config.toml"</code></pre>
+
+        <p>
+          Then save the custom API configuration as a second profile:
+        </p>
+
+        <pre><code>Copy-Item "path\to\custom-api-config.toml" `
+  "$env:USERPROFILE\.codex\profiles\custom-api.config.toml"</code></pre>
+
+        <p>
+          Do not publish the real custom API profile. It may contain a private
+          base URL, model names, account-specific settings, or environment
+          assumptions that should stay local.
+        </p>
+
+        <h2>The switching script</h2>
+
+        <p>
+          The switcher accepts <code>official</code>, <code>custom-api</code>,
+          or <code>status</code>. Before overwriting the active config, it saves
+          a timestamped backup.
+        </p>
+
+        <pre><code>param(
+    [Parameter(Mandatory = $true, Position = 0)]
+    [ValidateSet("official", "custom-api", "status")]
+    [string] $Profile
+)
+
+$ErrorActionPreference = "Stop"
+
+$codexHome = Join-Path $HOME ".codex"
+$configPath = Join-Path $codexHome "config.toml"
+$profilesDir = Join-Path $codexHome "profiles"
+$backupDir = Join-Path $profilesDir "backups"
+
+$profiles = @{
+    official = Join-Path $profilesDir "official.config.toml"
+    "custom-api" = Join-Path $profilesDir "custom-api.config.toml"
+}
+
+if ($Profile -eq "status") {
+    Write-Host "Active config: $configPath"
+    exit 0
+}
+
+$sourcePath = $profiles[$Profile]
+if (!(Test-Path -LiteralPath $sourcePath)) {
+    throw "Profile config not found: $sourcePath"
+}
+
+New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
+
+if (Test-Path -LiteralPath $configPath) {
+    $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
+    $backupPath = Join-Path $backupDir "config.$stamp.toml"
+    Copy-Item -LiteralPath $configPath -Destination $backupPath -Force
+}
+
+Copy-Item -LiteralPath $sourcePath -Destination $configPath -Force
+Write-Host "Switched Codex profile to: $Profile"</code></pre>
+
+        <p>Save it as:</p>
+
+        <pre><code>%USERPROFILE%\.codex\switch-codex-profile.ps1</code></pre>
+
+        <p>Then run:</p>
+
+        <pre><code>powershell.exe -NoProfile -ExecutionPolicy Bypass `
+  -File "$env:USERPROFILE\.codex\switch-codex-profile.ps1" official
+
+powershell.exe -NoProfile -ExecutionPolicy Bypass `
+  -File "$env:USERPROFILE\.codex\switch-codex-profile.ps1" custom-api</code></pre>
+
+        <h2>Optional double-click wrappers</h2>
+
+        <p>
+          For a manual workflow, small <code>.cmd</code> wrappers are enough.
+          They avoid typing the PowerShell command each time.
+        </p>
+
+        <pre><code>@echo off
+powershell.exe -NoProfile -ExecutionPolicy Bypass ^
+  -File "%USERPROFILE%\.codex\switch-codex-profile.ps1" official
+pause</code></pre>
+
+        <pre><code>@echo off
+powershell.exe -NoProfile -ExecutionPolicy Bypass ^
+  -File "%USERPROFILE%\.codex\switch-codex-profile.ps1" custom-api
+pause</code></pre>
+
+        <p>
+          After switching, restart Codex or open a new session so the app reads
+          the new <code>config.toml</code>.
+        </p>
+
+        <h2>What this does not do</h2>
+
+        <p>
+          This is not a multi-account sync system. It does not merge remote
+          server history, transfer billing state, or change authentication
+          tokens. It only swaps the local provider configuration file used by
+          Codex.
+        </p>
+
+        <p>
+          The important safety rule is to keep one shared <code>CODEX_HOME</code>.
+          If each profile launches Codex with a different home directory, then
+          sessions will naturally split across those directories.
+        </p>
+
+        <h2>Troubleshooting missing history</h2>
+
+        <p>
+          If the sidebar appears to lose old conversations, first check whether
+          the real session files still exist:
+        </p>
+
+        <pre><code>Get-ChildItem -Recurse -File "$env:USERPROFILE\.codex\sessions" |
+  Measure-Object</code></pre>
+
+        <p>
+          If there are many session files but only a few entries in
+          <code>session_index.jsonl</code>, the problem is likely the local
+          sidebar index rather than deleted conversations. Rebuilding the index
+          from the session files restores the visible list while keeping the
+          original conversations intact.
+        </p>
+
+        <p>
+          The lesson is simple: profile switching should be scoped to
+          <code>config.toml</code>. Conversation storage should remain shared,
+          boring, and backed up.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>Copyright <span id="year"></span> HaoRan Xu</span>
+        <span>Codex Builds</span>
+      </div>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
