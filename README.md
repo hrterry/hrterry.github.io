@@ -1,17 +1,15 @@
 # hrterry.github.io
 
-Personal blog for the **Codex Builds** series.
+Personal blog and skill archive for **Codex Builds**.
 
-The site records small real tasks completed with Codex, plus reusable skills and scripts that came out of the process.
+This site documents practical research and engineering workflows completed with
+Codex, then publishes the reusable skills and scripts that came out of those
+sessions.
 
-## Structure
+## Current post
 
-- `index.html`: blog homepage
-- `posts/`: standalone blog posts
-- `skills/`: reusable Codex skills referenced by posts
-- `style.css`: site styling
-- `script.js`: small shared JavaScript
+- Codex Builds 01: Rebuilding a hidden SlidesLive deck into a PPTX with Codex
 
-## Current Posts
+## Current skill
 
-- Codex Builds #1: 用 Codex 把 SlidesLive 隐藏幻灯片重建成 PPTX
+- `slideslive-pptx`: reconstruct SlidesLive decks and merge incremental reveal frames

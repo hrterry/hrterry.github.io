@@ -1,21 +1,22 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="hrterry 的个人 blog，记录使用 Codex 完成具体任务，并把过程沉淀成可复用 skills。"
+      content="HaoRan Xu's personal blog on building useful research and engineering workflows with Codex, including reusable skills."
     />
-    <title>hrterry | Codex Builds</title>
+    <title>HaoRan Xu | Codex Builds</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="./">hrterry</a>
+        <a class="brand" href="./">HaoRan Xu</a>
         <nav aria-label="Primary">
-          <a href="./">Blog</a>
+          <a href="#writing">Writing</a>
+          <a href="#skills">Skills</a>
           <a href="https://github.com/hrterry">GitHub</a>
         </nav>
       </div>
@@ -24,57 +25,70 @@
     <main>
       <section class="hero container">
         <p class="eyebrow">Codex Builds</p>
-        <h1>用 Codex 做成一些真实的小东西</h1>
+        <h1>Building small, durable tools with Codex.</h1>
         <p class="lead">
-          这个 blog 记录我如何把一个模糊需求交给 Codex，一起探索、实现、验证，
-          最后把可复用的工作流沉淀成 skill。第一篇从 SlidesLive 抓取隐藏幻灯片并重建 PPTX 开始。
+          I write about practical workflows where Codex helps turn an annoying,
+          under-specified task into a working artifact, then distill the process
+          into reusable skills that others can inspect, copy, and adapt.
         </p>
+        <div class="hero-meta">
+          <span>Research workflows</span>
+          <span>Automation</span>
+          <span>Reusable skills</span>
+        </div>
       </section>
 
-      <section class="container section">
+      <section id="writing" class="container section">
         <div class="section-heading">
-          <h2>文章</h2>
-          <p>每篇文章都尽量附上可复用代码或 skill。</p>
+          <p class="eyebrow">Writing</p>
+          <h2>Notes from finished work</h2>
         </div>
 
         <article class="post-card">
           <div>
-            <p class="post-meta">2026-05-26 · Codex Builds #1</p>
+            <p class="post-meta">May 26, 2026 · Codex Builds 01</p>
             <h3>
               <a href="./posts/codex-builds-01-slideslive-pptx.html">
-                用 Codex 把 SlidesLive 隐藏幻灯片重建成 PPTX
+                Rebuilding a hidden SlidesLive deck into a PPTX with Codex
               </a>
             </h3>
             <p>
-              从没有下载按钮的 SlidesLive 页面出发，定位隐藏的
-              <code>slides.json</code>，批量下载高清图片帧，重建 PPTX，
-              再压缩逐步 reveal 帧，最后沉淀成可复用的
-              <code>slideslive-pptx</code> skill。
+              A no-download SlidesLive talk became a reproducible pipeline:
+              discover the hidden slide manifest, reconstruct image URLs, rebuild
+              a PPTX, merge incremental reveal frames, and package the method as
+              a Codex skill.
             </p>
           </div>
-          <a class="read-link" href="./posts/codex-builds-01-slideslive-pptx.html">阅读</a>
+          <a class="read-link" href="./posts/codex-builds-01-slideslive-pptx.html">Read</a>
         </article>
       </section>
 
-      <section class="container section">
+      <section id="skills" class="container section">
         <div class="section-heading">
-          <h2>Skills</h2>
-          <p>文章中用到的 Codex skill 会放在这里，方便复制和改造。</p>
+          <p class="eyebrow">Skills</p>
+          <h2>Reusable artifacts</h2>
         </div>
 
-        <div class="resource-card">
-          <h3>slideslive-pptx</h3>
-          <p>
-            抓取 SlidesLive 隐藏图片帧，重建 PPTX，并可选合并逐步动画帧。
-          </p>
-          <a href="./skills/slideslive-pptx/SKILL.md">查看 SKILL.md</a>
-        </div>
+        <article class="resource-card">
+          <div>
+            <h3>slideslive-pptx</h3>
+            <p>
+              A Codex skill for reconstructing SlidesLive decks from hidden slide
+              images, with an optional pass for merging incremental reveal frames.
+            </p>
+          </div>
+          <div class="resource-links">
+            <a href="./skills/slideslive-pptx/">Overview</a>
+            <a href="./skills/slideslive-pptx/SKILL.md">Raw skill</a>
+          </div>
+        </article>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container">
-        <span>© <span id="year"></span> hrterry</span>
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> HaoRan Xu</span>
+        <span>hrterry.github.io</span>
       </div>
     </footer>
 

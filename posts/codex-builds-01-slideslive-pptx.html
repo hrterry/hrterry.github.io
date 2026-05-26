@@ -1,78 +1,80 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Codex Builds #1：用 Codex 把没有下载按钮的 SlidesLive 幻灯片重建成 PPTX，并沉淀成可复用 skill。"
+      content="Codex Builds 01: reconstructing a hidden SlidesLive deck into a PPTX and packaging the workflow as a reusable Codex skill."
     />
-    <title>用 Codex 把 SlidesLive 隐藏幻灯片重建成 PPTX | hrterry</title>
+    <title>Rebuilding a hidden SlidesLive deck into a PPTX | HaoRan Xu</title>
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="../">hrterry</a>
+        <a class="brand" href="../">HaoRan Xu</a>
         <nav aria-label="Primary">
-          <a href="../">Blog</a>
+          <a href="../#writing">Writing</a>
+          <a href="../#skills">Skills</a>
           <a href="https://github.com/hrterry">GitHub</a>
         </nav>
       </div>
     </header>
 
     <main class="article container">
-      <a class="back-link" href="../">← 返回首页</a>
+      <a class="back-link" href="../">Back to home</a>
 
       <article class="article-card">
-        <p class="post-meta">2026-05-26 · Codex Builds #1</p>
-        <h1>用 Codex 把 SlidesLive 隐藏幻灯片重建成 PPTX</h1>
+        <p class="post-meta">May 26, 2026 · Codex Builds 01</p>
+        <h1>Rebuilding a hidden SlidesLive deck into a PPTX with Codex</h1>
 
-        <p>
-          这是这个 blog 的第一篇文章。我想把这里写成一个小系列：
-          记录我如何用 Codex 完成一些真实、具体、略微麻烦的事情，
-          并在最后把流程沉淀成可以复用的 skill。
+        <p class="article-lead">
+          This is the first post in a small series on using Codex to finish
+          concrete tasks and preserve the resulting workflow as reusable skills.
+          The task this time was simple to state: download a SlidesLive deck from
+          a page that does not provide a download button.
         </p>
 
         <p>
-          第一篇从一个很朴素的需求开始：我想下载一个 SlidesLive 上的讲座 PPT。
-          页面本身没有下载按钮，只有在线播放。手动截图当然可以，但那不优雅，
-          也很难复用。所以我让 Codex 一起探索页面结构，找到实际加载的幻灯片资源，
-          再把它重建成 PPTX。
+          The interesting part was not merely getting the file. It was turning a
+          one-off exploration into a repeatable pattern: inspect the player,
+          identify the hidden slide manifest, reconstruct the image URLs, rebuild
+          a PPTX, compress incremental reveal frames, and save the whole method
+          as a Codex skill.
         </p>
 
-        <h2>目标</h2>
+        <h2>The target</h2>
 
-        <p>输入是一个 SlidesLive 页面：</p>
+        <p>The input was a public SlidesLive talk page:</p>
 
         <pre><code>https://slideslive.com/38935785/offline-reinforcement-learning-from-algorithms-to-practical-challenges</code></pre>
 
-        <p>我希望得到：</p>
+        <p>The desired output had four parts:</p>
 
         <ul>
-          <li>一个可以本地打开的 PPTX</li>
-          <li>尽量高清的幻灯片画面</li>
-          <li>如果原视频里每点一次只多一点内容，就把这些逐步 reveal 帧合并掉</li>
-          <li>最后把方法沉淀成 Codex skill，方便下次直接复用</li>
+          <li>a local PPTX that can be opened normally,</li>
+          <li>high-resolution slide images,</li>
+          <li>a compact version that removes incremental reveal frames,</li>
+          <li>a reusable skill so the next deck does not require fresh exploration.</li>
         </ul>
 
-        <h2>第一步：找到播放器真正加载的东西</h2>
+        <h2>Finding the hidden manifest</h2>
 
         <p>
-          SlidesLive 的普通页面不一定直接暴露幻灯片资源，但它有一个 embed 页面：
+          The ordinary SlidesLive page did not expose a download link, but the
+          embedded player page did reveal what the browser preloads:
         </p>
 
         <pre><code>https://slideslive.com/embed/presentation/38935785</code></pre>
 
-        <p>
-          抓这个页面时，可以看到播放器预加载了一个关键文件：
-        </p>
+        <p>Inside the embed HTML, the key asset was:</p>
 
         <pre><code>https://s.slideslive.com/38935785/v7/slides.json?1650711788</code></pre>
 
         <p>
-          这个 <code>slides.json</code> 里列出了每一帧幻灯片的名字和时间戳。
-          例如：
+          This <code>slides.json</code> file lists the image slide names and
+          timestamps. A typical entry looks like this:
         </p>
 
         <pre><code>{
@@ -83,39 +85,39 @@
   "time": 0
 }</code></pre>
 
-        <p>
-          同一个 embed 页面里还有两个播放器配置也很关键：
-        </p>
+        <p>The same page also exposes player configuration:</p>
 
         <pre><code>gon.hosts.slideslive_on_the_fly_resized_slides_host = "slideslive-slides.b-cdn.net"
 gon.use_bunny_cdn_for_player_image_slides = true</code></pre>
 
         <p>
-          这说明播放器没有神秘魔法，它只是根据 JSON 里的图片名拼 CDN URL。
+          That was enough to stop guessing. The deck was being served as images,
+          and the player script showed how to reconstruct the URLs.
         </p>
 
-        <h2>第二步：拼出图片 URL</h2>
+        <h2>Reconstructing image URLs</h2>
 
-        <p>播放器脚本里的规则大概是：</p>
+        <p>The Bunny CDN URL pattern is:</p>
 
         <pre><code>https://{slide_host}/{presentation_id}/slides/original/{image.name}.png?class={quality}</code></pre>
 
-        <p>实际例子：</p>
+        <p>For example:</p>
 
         <pre><code>https://slideslive-slides.b-cdn.net/38935785/slides/original/6fbe2879-a5e1-4be8-8b66-5a850adfea6e__0-0002.png?class=2160</code></pre>
 
         <p>
-          一个坑是：<code>slides.json</code> 里虽然有
-          <code>big</code> / <code>medium</code>，但 CDN 实际接受的是播放器内部使用的数字尺寸，
-          比如 <code>540</code>、<code>1080</code>、<code>2160</code>。
-          请求 <code>class=big</code> 反而可能 403。
+          One small but important detail: although the manifest mentions
+          <code>big</code> and <code>medium</code>, the CDN accepted numeric
+          classes such as <code>540</code>, <code>1080</code>, and
+          <code>2160</code>. Requesting <code>class=big</code> returned a 403.
         </p>
 
-        <h2>第三步：下载图片并重建 PPTX</h2>
+        <h2>Rebuilding the PPTX</h2>
 
         <p>
-          下载图片后，重建 PPTX 这一步很直接：每张图片占一页宽屏幻灯片。
-          用 <code>pptxgenjs</code> 就够了。
+          Once the slide images were downloaded, rebuilding the deck was
+          straightforward. Each image became a full-slide background in a
+          widescreen PPTX:
         </p>
 
         <pre><code>const pptx = new PptxGenJS();
@@ -129,92 +131,66 @@ for (const file of slideImages) {
 }</code></pre>
 
         <p>
-          这一步得到的是视觉保真的 PPTX，但文本不可编辑。原因很简单：
-          SlidesLive 暴露的是 raster image，而不是原始的 PowerPoint 源文件。
+          The resulting PPTX is visually faithful, but the text is not editable:
+          SlidesLive exposes rasterized slide images, not the original PowerPoint
+          source file.
         </p>
 
-        <h2>第四步：合并逐步 reveal 帧</h2>
+        <h2>Merging reveal frames</h2>
 
         <p>
-          讲座幻灯片经常是这样的：第一页有标题，下一页多一个 bullet，
-          再下一页又多一个公式。直接导出会得到很多“半成品帧”。
-          对复习和阅读来说，通常只需要最后那张信息完整的页。
+          Lecture slides often advance in small increments: one bullet appears,
+          then another formula, then an annotation. A raw export preserves every
+          frame, but a reader usually wants the final, information-complete page.
         </p>
 
         <p>
-          我们做了一个简单的图像差分规则。把相邻两页缩小后比较像素，
-          把差异分成三类：
+          The merge pass compares adjacent images at a lower resolution and
+          classifies changed pixels as:
         </p>
 
         <ul>
-          <li><code>added</code>：前一页接近空白，后一页出现内容</li>
-          <li><code>removed</code>：前一页有内容，后一页变空白</li>
-          <li><code>modified</code>：两边都有内容但颜色差异明显</li>
+          <li><code>added</code>: a previously blank region now contains content,</li>
+          <li><code>removed</code>: content disappeared into a blank region,</li>
+          <li><code>modified</code>: non-blank content changed color or shape.</li>
         </ul>
 
         <p>
-          如果差异主要是 <code>added</code>，同时删除和修改很少，
-          就认为后一页是在前一页基础上继续增加信息，于是丢弃前一页。
+          If the difference is mostly additive, with little removal or
+          modification, the earlier frame is dropped and the later frame is kept.
+          In this deck, the raw scrape produced 637 image frames. The compact
+          version kept 97 slides.
         </p>
+
+        <h2>The reusable skill</h2>
 
         <p>
-          这次结果是：原始抓取 637 张图片帧，合并后剩下 97 页。
-          这更接近一个适合阅读的讲义版 PPT。
+          The workflow is now packaged as a Codex skill:
+          <a href="../skills/slideslive-pptx/">slideslive-pptx</a>.
         </p>
 
-        <h2>最后：沉淀成 skill</h2>
-
-        <p>
-          我最喜欢这次工作的地方，不是成功下载了一个 PPT，
-          而是最后把过程变成了一个可复用的 Codex skill：
-        </p>
-
-        <p>
-          <a href="../skills/slideslive-pptx/SKILL.md">slideslive-pptx / SKILL.md</a>
-        </p>
-
-        <p>这个 skill 里包括：</p>
+        <p>It includes:</p>
 
         <ul>
-          <li>如何从 SlidesLive URL 找 embed 页面</li>
-          <li>如何定位 <code>slides.json</code></li>
-          <li>如何按播放器规则拼 CDN URL</li>
-          <li>如何重建 PPTX</li>
-          <li>如何合并 incremental reveal 帧</li>
+          <li>the discovery path for SlidesLive embed pages,</li>
+          <li>the hidden <code>slides.json</code> manifest pattern,</li>
+          <li>the CDN URL reconstruction rule,</li>
+          <li>a script for rebuilding PPTX files,</li>
+          <li>a script for merging incremental reveal frames.</li>
         </ul>
-
-        <p>同时附了两个脚本：</p>
-
-        <ul>
-          <li>
-            <a href="../skills/slideslive-pptx/scripts/rebuild_slideslive_pptx.mjs">
-              rebuild_slideslive_pptx.mjs
-            </a>
-          </li>
-          <li>
-            <a href="../skills/slideslive-pptx/scripts/merge_reveal_frames.mjs">
-              merge_reveal_frames.mjs
-            </a>
-          </li>
-        </ul>
-
-        <h2>小结</h2>
 
         <p>
-          这次让我觉得 Codex 很适合做一种“可沉淀的探索”：先帮我搞定一次具体问题，
-          然后把路径、坑、脚本和判断标准都保存下来。下一次遇到类似页面，
-          就不再需要重新摸索。
+          That is the core pattern I want this series to capture: use Codex to
+          solve the immediate task, then preserve the useful path so the next
+          attempt starts from a better place.
         </p>
-
-        <blockquote>
-          这个系列后面会继续记录：我用 Codex 做成什么，以及最后能沉淀出什么可复用的 skill。
-        </blockquote>
       </article>
     </main>
 
     <footer class="site-footer">
-      <div class="container">
-        <span>© <span id="year"></span> hrterry</span>
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> HaoRan Xu</span>
+        <span>Codex Builds</span>
       </div>
     </footer>
 

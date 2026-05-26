@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="slideslive-pptx: a reusable Codex skill for rebuilding SlidesLive decks as PPTX files."
+    />
+    <title>slideslive-pptx skill | HaoRan Xu</title>
+    <link rel="stylesheet" href="../../style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="../../">HaoRan Xu</a>
+        <nav aria-label="Primary">
+          <a href="../../#writing">Writing</a>
+          <a href="../../#skills">Skills</a>
+          <a href="https://github.com/hrterry">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="article container">
+      <a class="back-link" href="../../">Back to home</a>
+
+      <article class="article-card">
+        <p class="post-meta">Reusable Codex Skill</p>
+        <h1>slideslive-pptx</h1>
+        <p class="article-lead">
+          A small Codex skill for reconstructing SlidesLive presentations that do
+          not expose a download button. It downloads hidden slide images, rebuilds
+          a PPTX, and can merge incremental reveal frames.
+        </p>
+
+        <div class="button-row">
+          <a class="read-link" href="./SKILL.md">View raw SKILL.md</a>
+          <a class="read-link" href="./scripts/rebuild_slideslive_pptx.mjs">Rebuild script</a>
+          <a class="read-link" href="./scripts/merge_reveal_frames.mjs">Merge script</a>
+        </div>
+
+        <h2>What it does</h2>
+        <ul>
+          <li>Finds the SlidesLive embed page for a presentation.</li>
+          <li>Extracts the hidden <code>slides.json</code> manifest.</li>
+          <li>Reconstructs numeric-quality CDN image URLs.</li>
+          <li>Builds a visually faithful PPTX from image slides.</li>
+          <li>Optionally merges additive reveal frames into a compact deck.</li>
+        </ul>
+
+        <h2>Typical prompt</h2>
+        <pre><code>Use the slideslive-pptx skill to download this SlidesLive talk as a PPTX,
+then merge incremental reveal frames.</code></pre>
+
+        <h2>Install idea</h2>
+        <p>
+          Copy the <code>slideslive-pptx</code> folder into your local Codex
+          skills directory, or adapt the scripts directly for one-off use.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> HaoRan Xu</span>
+        <span>slideslive-pptx</span>
+      </div>
+    </footer>
+
+    <script src="../../script.js"></script>
+  </body>
+</html>
