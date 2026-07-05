@@ -1,0 +1,49 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare site artifact
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path _site | Out-Null
+          Copy-Item -LiteralPath '.nojekyll','index.html','blog.html','style.css','script.js' -Destination _site -Force
+          Copy-Item -LiteralPath 'posts','skills' -Destination _site -Recurse -Force
+          if (Test-Path -LiteralPath 'CNAME') {
+            Copy-Item -LiteralPath 'CNAME' -Destination _site -Force
+          }
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
