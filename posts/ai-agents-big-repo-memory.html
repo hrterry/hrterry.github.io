@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="How I would configure AI agents for a big repository: daily logs, centralized result templates, durable memory, and why harnesses alone are not enough."
+    />
+    <title>Configuring AI agents for a big repository | HaoRan Xu</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="../">HaoRan Xu</a>
+        <nav aria-label="Primary">
+          <a href="../">Home</a>
+          <a href="../blog.html">Blog</a>
+          <a href="https://github.com/hrterry">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="article container">
+      <a class="back-link" href="../blog.html">Back to blog</a>
+
+      <article class="article-card">
+        <p class="post-meta">July 6, 2026 &middot; Essay</p>
+        <h1>Configuring AI agents for a big repository</h1>
+
+        <p class="article-lead">
+          The hardest part of using AI agents on a large repository is usually
+          not code generation. It is state management: what has already been
+          tried, which branch carries the current working version, which failure
+          cases are real, and which settings have already been validated.
+        </p>
+
+        <p>
+          When I try to reproduce other methods, the common failure mode is that
+          information does not stay synchronized across sessions or across
+          agents. Time is wasted re-reading work documents, re-summarizing
+          branches, and re-discovering failure cases that were already known.
+          People often ask whether a harness is the answer. My view is that a
+          harness helps, but it is not the core solution.
+        </p>
+
+        <h2>The real bottleneck is stale context</h2>
+
+        <p>
+          A big repo is not hard only because it contains many files. It is hard
+          because the important context changes every day. The agent does not
+          merely need repository content. It needs the current experimental
+          state.
+        </p>
+
+        <p>That state usually includes:</p>
+
+        <ul>
+          <li>the active branch and why it exists,</li>
+          <li>the current working summary,</li>
+          <li>known failure cases and dead ends,</li>
+          <li>validated settings, paths, commands, and tool choices,</li>
+          <li>which results are provisional and which are trusted.</li>
+        </ul>
+
+        <p>
+          If that information lives only in scattered chat transcripts or in the
+          heads of human collaborators, the next agent session starts too close
+          to zero.
+        </p>
+
+        <h2>What helps right now</h2>
+
+        <p>
+          One system I found useful is simple daily logging. Antonia described a
+          setup where progress is logged in markdown files in a
+          <code>lab-notes</code> branch. That is valuable for two reasons. It
+          helps humans look back on experiments, and it also gives the agent a
+          compact memory source.
+        </p>
+
+        <p>
+          A practical session-start routine is to have the agent review the last
+          couple of lab notes before touching the code. That already gives much
+          better context than asking it to scan the whole repository again.
+        </p>
+
+        <p>
+          Another useful pattern is centralized result templates. If a large
+          experiment needs consistent reporting, have one agent create the
+          template first, then require all later agents to fill it in. A table
+          in markdown is not glamorous, but it acts as a constraint: each new
+          session knows what fields matter and what evidence is still missing.
+        </p>
+
+        <p>A minimal repository memory layer can be as boring as this:</p>
+
+        <pre><code>lab-notes/
+  2026-07-04.md
+  2026-07-05.md
+  2026-07-06.md
+
+agent-state/
+  working-summary.md
+  failure-cases.md
+  validated-settings.md
+  result-template.md</code></pre>
+
+        <p>
+          This is already enough to avoid a large amount of duplicated
+          summarization work.
+        </p>
+
+        <h2>Why harnesses are not the main answer</h2>
+
+        <p>
+          I have also been interested in harnesses such as Hermes Agent. They
+          are useful for orchestration, but I have become more skeptical that
+          they solve the main problem. One issue is speed: once model loading and
+          framework overhead become noticeable, even a simple prompt feels too
+          heavy.
+        </p>
+
+        <p>
+          The deeper issue is prompt injection strategy. Persistent agent
+          systems have to decide how much repository state to inject each time,
+          what to keep in a database, and how to avoid clogging context with
+          stale or low-value memory. This is still active research. The tools are
+          interesting, but they do not remove the design problem.
+        </p>
+
+        <p>
+          So if someone asks whether a harness manages the big repo for me, my
+          answer is: only partially. A harness can schedule work and route tasks,
+          but it does not automatically produce the right memory abstraction.
+        </p>
+
+        <h2>What should actually be cached</h2>
+
+        <p>
+          The cache should not be a raw dump of repository documents. That just
+          moves the reading cost from one place to another. The useful cache is a
+          distilled state representation that can become the next agent's real
+          context.
+        </p>
+
+        <p>In practice, I want the cache to remember:</p>
+
+        <ul>
+          <li>the current goal and stopping condition,</li>
+          <li>the last known good configuration,</li>
+          <li>the commands or tools that are known to work in this repo,</li>
+          <li>the failure cases that should not be retried blindly,</li>
+          <li>the conclusion of solved subproblems, not just the raw trace.</li>
+        </ul>
+
+        <p>
+          That last point matters. Memory should store the conclusion and the
+          setting. If the agent already learned that a certain flag combination,
+          environment assumption, or data path is wrong, the next session should
+          inherit that fact directly instead of rediscovering it.
+        </p>
+
+        <h2>The tool layer should remember too</h2>
+
+        <p>
+          Another weak point in many current systems is that tool memory is left
+          to third-party open-source harnesses. That is a fragile place to keep
+          something so central. If a repo repeatedly uses the same tools, the
+          agent should not have to re-learn them from prompts and skills every
+          time.
+        </p>
+
+        <p>
+          If commonly used, repository-specific tools could be integrated more
+          directly into the model product itself, a lot of wasted time would
+          disappear. Right now many agents get trapped in a familiar loop:
+          attempt, fail, escape the loop, rediscover context, try again. Better
+          memory at the model and tool layer would cut that waste sharply.
+        </p>
+
+        <h2>Where I think this should go</h2>
+
+        <p>
+          My current view is that prompt libraries, skills, and harnesses are
+          useful scaffolding, but they are not a satisfying long-term memory
+          solution. The stronger direction is joint optimization:
+        </p>
+
+        <ul>
+          <li>structured repository memory that persists across sessions,</li>
+          <li>cached conclusions and validated settings instead of raw logs,</li>
+          <li>tool-use memory closer to the model rather than bolted on outside,</li>
+          <li>user-facing fine-tuning windows for stable, repeated workflows.</li>
+        </ul>
+
+        <p>
+          I especially think ordinary users should eventually get a practical
+          fine-tuning window for this kind of repeated work. The content worth
+          adapting on is not the entire repository. It is the stable pattern of
+          decisions: which tools are preferred, which settings are canonical,
+          which failure modes are already settled, and what a correct solution
+          looks like in this environment.
+        </p>
+
+        <h2>My working rule for big repos</h2>
+
+        <p>
+          Until those systems become better, I would keep the process simple:
+          write daily logs, maintain one rolling summary, preserve a failure
+          ledger, require structured result tables, and make every session end by
+          updating those artifacts.
+        </p>
+
+        <p>
+          That approach is less exciting than a fully autonomous persistent
+          agent, but it is more reliable. For large repositories, reliability
+          comes from making the next session start with the right compressed
+          state, not from making the surrounding framework more elaborate.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>Copyright <span id="year"></span> HaoRan Xu</span>
+        <span>Essay</span>
+      </div>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

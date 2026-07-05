@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="HaoRan Xu's writing on research workflows, automation, and reusable technical skills."
+    />
+    <title>HaoRan Xu | Blog</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="./">HaoRan Xu</a>
+        <nav aria-label="Primary">
+          <a href="./">Home</a>
+          <a href="#writing">Writing</a>
+          <a href="#skills">Skills</a>
+          <a href="https://github.com/hrterry">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container">
+        <p class="eyebrow">Blog</p>
+        <h1>Writing about research workflows, tools, and durable methods.</h1>
+        <p class="lead">
+          This archive collects short notes on building practical workflows,
+          documenting useful solutions, and packaging repeatable methods into
+          reusable skills.
+        </p>
+        <div class="hero-meta">
+          <span>Research workflows</span>
+          <span>Automation</span>
+          <span>Reusable skills</span>
+        </div>
+      </section>
+
+      <section id="writing" class="container section">
+        <div class="section-heading">
+          <p class="eyebrow">Writing</p>
+          <h2>Notes from finished work</h2>
+        </div>
+
+        <article class="post-card">
+          <div>
+            <p class="post-meta">July 6, 2026 &middot; Essay</p>
+            <h3>
+              <a href="./posts/ai-agents-big-repo-memory.html">
+                Configuring AI agents for a big repository
+              </a>
+            </h3>
+            <p>
+              Notes on the real difficulty of multi-agent work in large repos:
+              stale context, repeated summarization, the limits of harnesses
+              like Hermes, and why durable memory should store conclusions,
+              validated settings, and failure cases instead of raw documents.
+            </p>
+          </div>
+          <a class="read-link" href="./posts/ai-agents-big-repo-memory.html">Read</a>
+        </article>
+
+        <article class="post-card">
+          <div>
+            <p class="post-meta">May 29, 2026 &middot; Quick Note</p>
+            <h3>
+              <a href="./posts/chatgpt-powerpoint-microsoft365.html">
+                Using ChatGPT inside Microsoft PowerPoint
+              </a>
+            </h3>
+            <p>
+              A short setup note: prepare Microsoft 365 / PowerPoint, install
+              the ChatGPT Office add-in from Microsoft Marketplace, sign in with
+              an OpenAI account, and start drafting or editing slides from the
+              PowerPoint sidebar.
+            </p>
+          </div>
+          <a class="read-link" href="./posts/chatgpt-powerpoint-microsoft365.html">Read</a>
+        </article>
+
+        <article class="post-card">
+          <div>
+            <p class="post-meta">May 26, 2026 &middot; Codex Builds 02</p>
+            <h3>
+              <a href="./posts/codex-builds-02-codex-profile-switching.html">
+                Switching Codex between login quota and a custom API
+              </a>
+            </h3>
+            <p>
+              A small local profile switcher for Codex: keep the official login
+              config and a custom API config as separate snapshots, swap only
+              <code>config.toml</code>, and keep chat history in one shared
+              Codex home.
+            </p>
+          </div>
+          <a class="read-link" href="./posts/codex-builds-02-codex-profile-switching.html">Read</a>
+        </article>
+
+        <article class="post-card">
+          <div>
+            <p class="post-meta">May 26, 2026 &middot; Codex Builds 01</p>
+            <h3>
+              <a href="./posts/codex-builds-01-slideslive-pptx.html">
+                Rebuilding a hidden SlidesLive deck into a PPTX with Codex
+              </a>
+            </h3>
+            <p>
+              A no-download SlidesLive talk became a reproducible pipeline:
+              discover the hidden slide manifest, reconstruct image URLs, rebuild
+              a PPTX, merge incremental reveal frames, and package the method as
+              a Codex skill.
+            </p>
+          </div>
+          <a class="read-link" href="./posts/codex-builds-01-slideslive-pptx.html">Read</a>
+        </article>
+      </section>
+
+      <section id="skills" class="container section">
+        <div class="section-heading">
+          <p class="eyebrow">Skills</p>
+          <h2>Reusable artifacts</h2>
+        </div>
+
+        <article class="resource-card">
+          <div>
+            <h3>slideslive-pptx</h3>
+            <p>
+              A Codex skill for reconstructing SlidesLive decks from hidden slide
+              images, with an optional pass for merging incremental reveal frames.
+            </p>
+          </div>
+          <div class="resource-links">
+            <a href="./skills/slideslive-pptx/">Overview</a>
+            <a href="./skills/slideslive-pptx/SKILL.md">Raw skill</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>Copyright <span id="year"></span> HaoRan Xu</span>
+        <span>Blog</span>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

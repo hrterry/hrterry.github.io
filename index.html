@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="HaoRan Xu's personal blog on building useful research and engineering workflows with Codex, including reusable skills."
+      content="HaoRan Xu's academic homepage, featuring a short scholarly profile, research interests, and links to writing."
     />
-    <title>HaoRan Xu | Codex Builds</title>
+    <title>HaoRan Xu | Academic Homepage</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
@@ -15,116 +15,154 @@
       <div class="container nav">
         <a class="brand" href="./">HaoRan Xu</a>
         <nav aria-label="Primary">
-          <a href="#writing">Writing</a>
-          <a href="#skills">Skills</a>
+          <a href="#about">About</a>
+          <a href="#research">Research</a>
+          <a href="./blog.html">Blog</a>
           <a href="https://github.com/hrterry">GitHub</a>
         </nav>
       </div>
     </header>
 
     <main>
-      <section class="hero container">
-        <p class="eyebrow">Codex Builds</p>
-        <h1>Building small, durable tools with Codex.</h1>
-        <p class="lead">
-          I write about practical workflows where Codex helps turn an annoying,
-          under-specified task into a working artifact, then distill the process
-          into reusable skills that others can inspect, copy, and adapt.
-        </p>
-        <div class="hero-meta">
-          <span>Research workflows</span>
-          <span>Automation</span>
-          <span>Reusable skills</span>
+      <section class="hero container hero-grid">
+        <div>
+          <p class="eyebrow">Academic Profile</p>
+          <h1>Researching computational methods for precise, usable science.</h1>
+          <p class="lead">
+            I work on <strong>[your field / department]</strong> with a focus on
+            <strong>[your main problem area]</strong>. This page is a concise
+            introduction to my academic background, current questions, and the
+            themes that connect my research and technical work.
+          </p>
+          <div class="hero-meta">
+            <span>[Affiliation]</span>
+            <span>[Methods / Computation]</span>
+            <span>[Application Domain]</span>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <p class="eyebrow">At a Glance</p>
+          <dl class="profile-facts">
+            <div>
+              <dt>Position</dt>
+              <dd>[Current title or degree]</dd>
+            </div>
+            <div>
+              <dt>Institution</dt>
+              <dd>[University / Lab / Department]</dd>
+            </div>
+            <div>
+              <dt>Location</dt>
+              <dd>[City, Country]</dd>
+            </div>
+            <div>
+              <dt>Email</dt>
+              <dd>[your-email@example.com]</dd>
+            </div>
+          </dl>
+          <div class="button-row">
+            <a class="read-link" href="./blog.html">Visit Blog</a>
+            <a class="read-link" href="https://github.com/hrterry">View GitHub</a>
+          </div>
+        </aside>
+      </section>
+
+      <section id="about" class="container section">
+        <div class="section-heading">
+          <p class="eyebrow">About</p>
+          <h2>A short scholarly introduction</h2>
+        </div>
+
+        <div class="info-grid">
+          <article class="feature-card">
+            <h3>Biography</h3>
+            <p>
+              Use this block for a compact introduction: your training, present
+              affiliation, and the central question that motivates your work.
+              Two or three sentences usually read best here.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>Current Focus</h3>
+            <p>
+              Summarize what you are working on now, such as a thesis direction,
+              a lab project, or a methodological program. Keep it specific enough
+              to signal expertise but short enough to scan quickly.
+            </p>
+          </article>
         </div>
       </section>
 
-      <section id="writing" class="container section">
+      <section id="research" class="container section">
         <div class="section-heading">
-          <p class="eyebrow">Writing</p>
-          <h2>Notes from finished work</h2>
+          <p class="eyebrow">Research Interests</p>
+          <h2>Questions and directions</h2>
         </div>
 
-        <article class="post-card">
-          <div>
-            <p class="post-meta">May 29, 2026 &middot; Quick Note</p>
-            <h3>
-              <a href="./posts/chatgpt-powerpoint-microsoft365.html">
-                Using ChatGPT inside Microsoft PowerPoint
-              </a>
-            </h3>
+        <div class="interest-grid">
+          <article class="interest-card">
+            <p class="post-meta">Direction 01</p>
+            <h3>[Research theme one]</h3>
             <p>
-              A short setup note: prepare Microsoft 365 / PowerPoint, install
-              the ChatGPT Office add-in from Microsoft Marketplace, sign in with
-              an OpenAI account, and start drafting or editing slides from the
-              PowerPoint sidebar.
+              Describe the problem space, why it matters, and the kind of methods
+              or data you use to study it.
             </p>
-          </div>
-          <a class="read-link" href="./posts/chatgpt-powerpoint-microsoft365.html">Read</a>
-        </article>
+          </article>
 
-        <article class="post-card">
-          <div>
-            <p class="post-meta">May 26, 2026 &middot; Codex Builds 02</p>
-            <h3>
-              <a href="./posts/codex-builds-02-codex-profile-switching.html">
-                Switching Codex between login quota and a custom API
-              </a>
-            </h3>
+          <article class="interest-card">
+            <p class="post-meta">Direction 02</p>
+            <h3>[Research theme two]</h3>
             <p>
-              A small local profile switcher for Codex: keep the official login
-              config and a custom API config as separate snapshots, swap only
-              <code>config.toml</code>, and keep chat history in one shared
-              Codex home.
+              Add a second theme here, such as a computational, biological, or
+              interdisciplinary line of work that you want to foreground.
             </p>
-          </div>
-          <a class="read-link" href="./posts/codex-builds-02-codex-profile-switching.html">Read</a>
-        </article>
+          </article>
 
-        <article class="post-card">
-          <div>
-            <p class="post-meta">May 26, 2026 · Codex Builds 01</p>
-            <h3>
-              <a href="./posts/codex-builds-01-slideslive-pptx.html">
-                Rebuilding a hidden SlidesLive deck into a PPTX with Codex
-              </a>
-            </h3>
+          <article class="interest-card">
+            <p class="post-meta">Direction 03</p>
+            <h3>[Research theme three]</h3>
             <p>
-              A no-download SlidesLive talk became a reproducible pipeline:
-              discover the hidden slide manifest, reconstruct image URLs, rebuild
-              a PPTX, merge incremental reveal frames, and package the method as
-              a Codex skill.
+              Use the third card for an adjacent interest, an emerging topic, or
+              a translational direction that rounds out your profile.
             </p>
-          </div>
-          <a class="read-link" href="./posts/codex-builds-01-slideslive-pptx.html">Read</a>
-        </article>
+          </article>
+        </div>
       </section>
 
-      <section id="skills" class="container section">
+      <section class="container section">
         <div class="section-heading">
-          <p class="eyebrow">Skills</p>
-          <h2>Reusable artifacts</h2>
+          <p class="eyebrow">Selected Work</p>
+          <h2>Projects, outputs, and ongoing threads</h2>
         </div>
 
-        <article class="resource-card">
-          <div>
-            <h3>slideslive-pptx</h3>
+        <div class="info-grid">
+          <article class="feature-card">
+            <h3>[Project or paper title]</h3>
             <p>
-              A Codex skill for reconstructing SlidesLive decks from hidden slide
-              images, with an optional pass for merging incremental reveal frames.
+              Add a one-paragraph summary of a representative project, paper, or
+              ongoing line of work. This area works well for research statements,
+              preprints, or highlights from your lab work.
             </p>
-          </div>
-          <div class="resource-links">
-            <a href="./skills/slideslive-pptx/">Overview</a>
-            <a href="./skills/slideslive-pptx/SKILL.md">Raw skill</a>
-          </div>
-        </article>
+          </article>
+
+          <article class="feature-card">
+            <h3>Writing and technical notes</h3>
+            <p>
+              The blog remains available as a separate section for workflow notes,
+              technical essays, and reusable skills.
+              <a href="./blog.html">Browse the writing archive</a>.
+            </p>
+          </article>
+        </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <span>© <span id="year"></span> HaoRan Xu</span>
-        <span>hrterry.github.io</span>
+        <span>Copyright <span id="year"></span> HaoRan Xu</span>
+        <span>Academic Homepage</span>
       </div>
     </footer>
 

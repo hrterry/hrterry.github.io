@@ -110,6 +110,13 @@ pre code {
   padding: 7rem 0 4rem;
 }
 
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+  gap: 2rem;
+  align-items: start;
+}
+
 .eyebrow,
 .post-meta {
   color: var(--accent);
@@ -170,6 +177,51 @@ h3 {
   padding: 0.35rem 0.7rem;
 }
 
+.hero-panel,
+.feature-card,
+.interest-card {
+  background: color-mix(in oklab, var(--paper) 96%, white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 20px 45px rgba(59, 47, 35, 0.07);
+}
+
+.hero-panel {
+  padding: 1.45rem 1.4rem;
+}
+
+.profile-facts {
+  display: grid;
+  gap: 1rem;
+  margin: 1.2rem 0 1.5rem;
+}
+
+.profile-facts div {
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.profile-facts div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.profile-facts dt {
+  margin-bottom: 0.18rem;
+  color: var(--accent);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.profile-facts dd {
+  margin: 0;
+  color: var(--muted);
+}
+
 .section {
   padding: 2.8rem 0;
 }
@@ -179,6 +231,36 @@ h3 {
   grid-template-columns: 180px 1fr;
   gap: 2rem;
   margin-bottom: 1.1rem;
+}
+
+.info-grid,
+.interest-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.info-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.interest-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.feature-card,
+.interest-card {
+  padding: 1.45rem 1.5rem;
+}
+
+.feature-card h3,
+.interest-card h3 {
+  margin-bottom: 0.65rem;
+}
+
+.feature-card p,
+.interest-card p {
+  color: var(--muted);
+  margin-bottom: 0;
 }
 
 .post-card,
@@ -302,7 +384,10 @@ h3 {
     padding: 4.5rem 0 2.5rem;
   }
 
+  .hero-grid,
   .section-heading,
+  .info-grid,
+  .interest-grid,
   .post-card,
   .resource-card {
     grid-template-columns: 1fr;
