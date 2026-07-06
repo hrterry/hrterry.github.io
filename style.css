@@ -190,6 +190,19 @@ h3 {
   padding: 1.45rem 1.4rem;
 }
 
+.profile-name {
+  margin-bottom: 0.3rem;
+}
+
+.profile-subname {
+  margin: 0 0 1.1rem;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-size: 0.96rem;
+  letter-spacing: 0.06em;
+}
+
 .profile-facts {
   display: grid;
   gap: 1rem;
