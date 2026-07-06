@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Research templates and visual project notes for scalable generative methods, multimodal learning, and biomedical foundation models."
+    />
+    <title>HaoRan Xu | Research</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="./">HaoRan Xu</a>
+        <nav aria-label="Primary">
+          <a href="./">Home</a>
+          <a href="./research.html">Research</a>
+          <a href="./blog.html">Blog</a>
+          <a href="https://github.com/hrterry">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container">
+        <p class="eyebrow">Research</p>
+        <h1>Publications</h1>
+        <p class="lead">
+          Selected publications and research notes on my recent work in
+          generative modeling, multimodal learning, and biomedical AI.
+        </p>
+        <div class="hero-meta">
+          <span>Publications</span>
+          <span>Research Blog</span>
+          <span>Biomedical AI</span>
+        </div>
+      </section>
+
+      <section class="container section">
+        <div class="section-heading">
+          <p class="eyebrow">Selected Papers</p>
+          <h2>Recent publications</h2>
+        </div>
+
+        <div class="project-list">
+          <article class="project-card article-card">
+            <div class="project-figure has-image">
+              <img
+                class="project-image single"
+                src="./bioflow-arch_01.png"
+                alt="BioFlow architecture overview."
+              />
+            </div>
+            <div class="project-body">
+              <p class="post-meta">MICCAI 2026</p>
+              <h3>BioFlow: A Biologically Valid Support-Preserving Flow for Histology-Conditioned Spatial Transcriptomics Prediction</h3>
+              <p class="project-authors">
+                <strong>Haoran Xu</strong>, Yang Liu, Wei Yuan, Xiao Han<sup>*</sup>
+              </p>
+              <p>
+                This work reflects my interest in generative methods through the
+                lens of flow matching. In spatial transcriptomics prediction,
+                gene expression is sparse, zero-inflated, and strictly
+                non-negative, while many existing generative models still evolve
+                in unconstrained Euclidean space.
+              </p>
+              <p>
+                BioFlow addresses this mismatch by building the support
+                constraint directly into the flow-matching dynamics rather than
+                fixing invalid outputs afterward. The core idea is to preserve
+                biologically valid trajectories throughout generation, so the
+                model respects the geometry of count-based expression data at the
+                trajectory level.
+              </p>
+              <p>
+                More broadly, this project captures the kind of generative
+                modeling I care about: methods that are not only accurate, but
+                also structurally aligned with the data domain during the full
+                generation process.
+              </p>
+            </div>
+          </article>
+
+          <article class="project-card reverse article-card">
+            <div class="project-figure has-image">
+              <img
+                class="project-image single"
+                src="./SPAMV_36.png"
+                alt="SpaMV visualization for interpretable spatial multi-omics integration."
+              />
+            </div>
+            <div class="project-body">
+              <p class="post-meta">Nature Communications</p>
+              <h3>Interpretable Spatial Multi-Omics Data Integration and Dimensionality Reduction with SpaMV</h3>
+              <p class="project-authors">
+                Yang Liu, Kexin Ma, <strong>Haoran Xu</strong>, Ke Xu, Yunfei Hu,
+                Zhenhan Lin, Jiangli Lin, Bo Han, Shuaicheng Li, Zhixiang Lin,
+                Xin Maizie Zhou<sup>*</sup>, Lu Zhang<sup>*</sup>
+              </p>
+              <p>
+                This work reflects my interest in generative methods for
+                multimodal learning, especially multi-modal variational
+                autoencoders. In SpaMV, I study spatial multi-omics integration
+                from a multi-view perspective rather than forcing all omics into
+                a single latent space.
+              </p>
+              <p>
+                The key idea is to separate what is shared across modalities from
+                what remains omics-specific. That distinction matters because
+                different omics often carry genuinely different biological
+                signals, and a good multimodal generative model should preserve
+                that structure rather than collapse it.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="container section">
+        <div class="section-heading">
+          <p class="eyebrow">Research Blog</p>
+          <h2>Notes around ongoing work</h2>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>Copyright <span id="year"></span> HaoRan Xu</span>
+        <span>Research</span>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
