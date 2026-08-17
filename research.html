@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Research templates and visual project notes for scalable generative methods, multimodal learning, and biomedical foundation models."
+      content="Selected research by Haron Xu on generative modeling, multimodal learning, and biological foundation models."
     />
-    <title>HaoRan Xu | Research</title>
+    <title>Haron Xu | Research</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="./">HaoRan Xu</a>
+        <a class="brand" href="./">Haron Xu</a>
         <nav aria-label="Primary">
           <a href="./">Home</a>
           <a href="./research.html">Research</a>
@@ -26,22 +26,22 @@
     <main>
       <section class="hero container">
         <p class="eyebrow">Research</p>
-        <h1>Publications</h1>
+        <h1>Research</h1>
         <p class="lead">
-          Selected publications and research notes on my recent work in
-          generative modeling, multimodal learning, and biomedical AI.
+          Selected published work in generative modeling, multimodal learning,
+          and biological foundation models.
         </p>
         <div class="hero-meta">
-          <span>Publications</span>
-          <span>Research Blog</span>
-          <span>Biomedical AI</span>
+          <span>Generative Models</span>
+          <span>Post-training</span>
+          <span>Foundation Models</span>
         </div>
       </section>
 
       <section class="container section">
         <div class="section-heading">
-          <p class="eyebrow">Selected Papers</p>
-          <h2>Recent publications</h2>
+          <p class="eyebrow">Published Work</p>
+          <h2>Selected publications</h2>
         </div>
 
         <div class="project-list">
@@ -60,26 +60,15 @@
                 <strong>Haoran Xu</strong>, Yang Liu, Wei Yuan, Xiao Han<sup>*</sup>
               </p>
               <p>
-                This work reflects my interest in generative methods through the
-                lens of flow matching. In spatial transcriptomics prediction,
-                gene expression is sparse, zero-inflated, and strictly
-                non-negative, while many existing generative models still evolve
-                in unconstrained Euclidean space.
+                Identified that standard diffusion and flow trajectories leave
+                the valid support of sparse, non-negative gene-expression data.
+                Developed a support-preserving flow formulation that improved
+                PCC by 2750% and reduced training time by 5200% over matched
+                baselines.
               </p>
-              <p>
-                BioFlow addresses this mismatch by building the support
-                constraint directly into the flow-matching dynamics rather than
-                fixing invalid outputs afterward. The core idea is to preserve
-                biologically valid trajectories throughout generation, so the
-                model respects the geometry of count-based expression data at the
-                trajectory level.
-              </p>
-              <p>
-                More broadly, this project captures the kind of generative
-                modeling I care about: methods that are not only accurate, but
-                also structurally aligned with the data domain during the full
-                generation process.
-              </p>
+              <div class="button-row">
+                <a class="read-link" href="./BioFlow-camera.pdf">Paper</a>
+              </div>
             </div>
           </article>
 
@@ -100,35 +89,24 @@
                 Xin Maizie Zhou<sup>*</sup>, Lu Zhang<sup>*</sup>
               </p>
               <p>
-                This work reflects my interest in generative methods for
-                multimodal learning, especially multi-modal variational
-                autoencoders. In SpaMV, I study spatial multi-omics integration
-                from a multi-view perspective rather than forcing all omics into
-                a single latent space.
+                Developed a multi-view variational framework that separates
+                shared and modality-specific representations for interpretable
+                spatial multi-omics integration. Published in Nature
+                Communications.
               </p>
-              <p>
-                The key idea is to separate what is shared across modalities from
-                what remains omics-specific. That distinction matters because
-                different omics often carry genuinely different biological
-                signals, and a good multimodal generative model should preserve
-                that structure rather than collapse it.
-              </p>
+              <div class="button-row">
+                <a class="read-link" href="./SPAMV.pdf">Paper</a>
+              </div>
             </div>
           </article>
         </div>
       </section>
 
-      <section class="container section">
-        <div class="section-heading">
-          <p class="eyebrow">Research Blog</p>
-          <h2>Notes around ongoing work</h2>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <span>Copyright <span id="year"></span> HaoRan Xu</span>
+        <span>Copyright <span id="year"></span> Haron Xu</span>
         <span>Research</span>
       </div>
     </footer>
