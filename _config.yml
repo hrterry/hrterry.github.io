@@ -226,7 +226,6 @@ exclude:
   - _pages/profiles.md
   - _pages/repositories.md
   - _pages/teaching.md
-  - _posts/
   - _teachings/
   - assets/jupyter/
   - AGENTS.md

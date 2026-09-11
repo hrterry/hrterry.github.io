@@ -2,16 +2,30 @@
 layout: page
 permalink: /blog/
 title: Blog
-description: Notes on generative modeling, computational biology, and research practice.
+description: Notes on research workflows, AI tools, and durable technical methods.
 nav: true
 nav_order: 3
 ---
 
-I use this space for longer notes that sit between a paper and a lab notebook: explanations of modeling choices, research intuitions, negative results, and reflections on doing AI-for-science research.
+<div class="blog-intro">
+  <p>
+    Notes from finished work: practical research workflows, tools I have tested, and methods worth preserving beyond a single project.
+  </p>
+  <span>{{ site.posts | size }} essays and notes</span>
+</div>
 
-The first essays are in preparation. Planned topics include verifier-guided RNA design, diversity collapse in scientific generation, and what generative objectives learn in deterministic multimodal prediction.
-
-<div class="blog-empty-state">
-  <span>Research notes coming soon</span>
-  <p>New essays will appear here as they are ready.</p>
+<div class="writing-list">
+  {% for post in site.posts %}
+    <article class="writing-entry">
+      <a href="{{ post.url | relative_url }}" aria-label="Read {{ post.title }}">
+        <div class="writing-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
+          <span>{{ post.categories | first | replace: "-", " " }}</span>
+        </div>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.description }}</p>
+        <span class="writing-read">Read note <i class="fa-solid fa-arrow-right-long"></i></span>
+      </a>
+    </article>
+  {% endfor %}
 </div>
