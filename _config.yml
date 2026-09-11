@@ -95,14 +95,14 @@ al_folio:
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: true
+footer_fixed: false
 search_enabled: true
 socials_in_search: true
 posts_in_search: false
 bib_search: true
 
 # Dimensions
-max_width: 930px
+max_width: 1040px
 
 # -----------------------------------------------------------------------------
 # Open Graph & Schema.org
@@ -220,11 +220,8 @@ kramdown:
 include: ["_pages"]
 exclude:
   - _books/
-  - _news/announcement_*.md
-  - _pages/blog.md
   - _pages/books.md
   - _pages/dropdown.md
-  - _pages/news.md
   - _pages/plugins.md
   - _pages/profiles.md
   - _pages/repositories.md
@@ -243,13 +240,11 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - LICENSE
-  - lighthouse_results/
   - package.json
   - package-lock.json
   - _pages/about_einstein.md
   - purgecss.config.js
   - README.md
-  - readme_preview/
   - gems/
   - migrations/
   - vendor
@@ -548,7 +543,7 @@ third_party_libraries:
     version: "5.5.0"
   google_fonts:
     url:
-      fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&display=swap"
+      fonts: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Material+Icons&display=swap"
   highlightjs:
     integrity:
       css:

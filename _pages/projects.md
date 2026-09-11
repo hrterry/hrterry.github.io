@@ -3,8 +3,8 @@ layout: page
 title: research
 permalink: /research/
 description: Research stories across generative modeling, biological representation learning, and scientific foundation models.
-nav: true
-nav_order: 1
+nav: false
+nav_order: 4
 horizontal: true
 ---
 
