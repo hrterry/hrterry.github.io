@@ -1,0 +1,118 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Configuring AI agents for a big repository | Haron Xu </title> <meta name="author" content="Haoran (Haron) Xu"> <meta name="description" content="Notes on stale context, durable repository memory, validated settings, failure cases, and the limits of orchestration harnesses."> <meta name="keywords" content="generative models, biological foundation models, AI for science, computational biology, spatial omics, computational pathology"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 1040px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,600&amp;family=Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="https://hrterry.github.io/blog/2026/ai-agents-big-repo-memory/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav sticky-bottom-footer"> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Haron Xu </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">About </a> </li> <li class="nav-item "> <a class="nav-link" href="/news/">News </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publication </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog <span class="sr-only">(current)</span> </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Configuring AI agents for a big repository</h1> <p class="post-meta"> Created on July 06, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/ai-agents"> <i class="fa-solid fa-hashtag fa-sm"></i> ai-agents</a>   <a href="/blog/tag/memory"> <i class="fa-solid fa-hashtag fa-sm"></i> memory</a>   <a href="/blog/tag/repositories"> <i class="fa-solid fa-hashtag fa-sm"></i> repositories</a>   ·   <a href="/blog/category/essays"> <i class="fa-solid fa-tag fa-sm"></i> essays</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>The hardest part of using AI agents on a large repository is usually not code generation. It is state management: what has already been tried, which branch carries the current working version, which failure cases are real, and which settings have already been validated.</p> <p>When I try to reproduce other methods, the common failure mode is that information does not stay synchronized across sessions or across agents. Time is wasted re-reading work documents, re-summarizing branches, and re-discovering failure cases that were already known. People often ask whether a harness is the answer. My view is that a harness helps, but it is not the core solution.</p> <h2 id="the-real-bottleneck-is-stale-context">The real bottleneck is stale context</h2> <p>A big repo is not hard only because it contains many files. It is hard because the important context changes every day. The agent does not merely need repository content. It needs the current experimental state.</p> <p>That state usually includes:</p> <ul> <li>the active branch and why it exists,</li> <li>the current working summary,</li> <li>known failure cases and dead ends,</li> <li>validated settings, paths, commands, and tool choices,</li> <li>which results are provisional and which are trusted.</li> </ul> <p>If that information lives only in scattered chat transcripts or in the heads of human collaborators, the next agent session starts too close to zero.</p> <h2 id="what-helps-right-now">What helps right now</h2> <p>One system I found useful is simple daily logging. Antonia described a setup where progress is logged in markdown files in a <code class="language-plaintext highlighter-rouge">lab-notes</code> branch. That is valuable for two reasons. It helps humans look back on experiments, and it also gives the agent a compact memory source.</p> <p>A practical session-start routine is to have the agent review the last couple of lab notes before touching the code. That already gives much better context than asking it to scan the whole repository again.</p> <p>Another useful pattern is centralized result templates. If a large experiment needs consistent reporting, have one agent create the template first, then require all later agents to fill it in. A table in markdown is not glamorous, but it acts as a constraint: each new session knows what fields matter and what evidence is still missing.</p> <p>A minimal repository memory layer can be as boring as this:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lab-notes/
+  2026-07-04.md
+  2026-07-05.md
+  2026-07-06.md
+
+agent-state/
+  working-summary.md
+  failure-cases.md
+  validated-settings.md
+  result-template.md
+</code></pre></div></div> <p>This is already enough to avoid a large amount of duplicated summarization work.</p> <h2 id="why-harnesses-are-not-the-main-answer">Why harnesses are not the main answer</h2> <p>I have also been interested in harnesses such as Hermes Agent. They are useful for orchestration, but I have become more skeptical that they solve the main problem. One issue is speed: once model loading and framework overhead become noticeable, even a simple prompt feels too heavy.</p> <p>The deeper issue is prompt injection strategy. Persistent agent systems have to decide how much repository state to inject each time, what to keep in a database, and how to avoid clogging context with stale or low-value memory. This is still active research. The tools are interesting, but they do not remove the design problem.</p> <p>So if someone asks whether a harness manages the big repo for me, my answer is: only partially. A harness can schedule work and route tasks, but it does not automatically produce the right memory abstraction.</p> <h2 id="what-should-actually-be-cached">What should actually be cached</h2> <p>The cache should not be a raw dump of repository documents. That just moves the reading cost from one place to another. The useful cache is a distilled state representation that can become the next agent’s real context.</p> <p>In practice, I want the cache to remember:</p> <ul> <li>the current goal and stopping condition,</li> <li>the last known good configuration,</li> <li>the commands or tools that are known to work in this repo,</li> <li>the failure cases that should not be retried blindly,</li> <li>the conclusion of solved subproblems, not just the raw trace.</li> </ul> <p>That last point matters. Memory should store the conclusion and the setting. If the agent already learned that a certain flag combination, environment assumption, or data path is wrong, the next session should inherit that fact directly instead of rediscovering it.</p> <h2 id="the-tool-layer-should-remember-too">The tool layer should remember too</h2> <p>Another weak point in many current systems is that tool memory is left to third-party open-source harnesses. That is a fragile place to keep something so central. If a repo repeatedly uses the same tools, the agent should not have to re-learn them from prompts and skills every time.</p> <p>If commonly used, repository-specific tools could be integrated more directly into the model product itself, a lot of wasted time would disappear. Right now many agents get trapped in a familiar loop: attempt, fail, escape the loop, rediscover context, try again. Better memory at the model and tool layer would cut that waste sharply.</p> <h2 id="where-i-think-this-should-go">Where I think this should go</h2> <p>My current view is that prompt libraries, skills, and harnesses are useful scaffolding, but they are not a satisfying long-term memory solution. The stronger direction is joint optimization:</p> <ul> <li>structured repository memory that persists across sessions,</li> <li>cached conclusions and validated settings instead of raw logs,</li> <li>tool-use memory closer to the model rather than bolted on outside,</li> <li>user-facing fine-tuning windows for stable, repeated workflows.</li> </ul> <p>I especially think ordinary users should eventually get a practical fine-tuning window for this kind of repeated work. The content worth adapting on is not the entire repository. It is the stable pattern of decisions: which tools are preferred, which settings are canonical, which failure modes are already settled, and what a correct solution looks like in this environment.</p> <h2 id="my-working-rule-for-big-repos">My working rule for big repos</h2> <p>Until those systems become better, I would keep the process simple: write daily logs, maintain one rolling summary, preserve a failure ledger, require structured result tables, and make every session end by updating those artifacts.</p> <p>That approach is less exciting than a fully autonomous persistent agent, but it is more reliable. For large repositories, reliability comes from making the next session start with the right compressed state, not from making the surrounding framework more elaborate.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/chatgpt-powerpoint-microsoft365/">Using ChatGPT inside Microsoft PowerPoint</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/codex-builds-02-codex-profile-switching/">Switching Codex between login quota and a custom API</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/codex-builds-01-slideslive-pptx/">Rebuilding a hidden SlidesLive deck into a PPTX with Codex</a> </li> </ul> </div> </div> <footer class="sticky-bottom mt-5" role="contentinfo"> <div class="container"> © Copyright 2026 Haoran (Haron) Xu. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "About",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-news",
+          title: "News",
+          description: "Research updates from Haoran (Haron) Xu.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/news/";
+          },
+        },{id: "nav-publication",
+          title: "Publication",
+          description: "Research papers in generative modeling, spatial omics, and computational biology.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "Notes on research workflows, AI tools, and durable technical methods.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "projects-structure-preserving-generative-modeling-for-spatial-omics",
+          title: 'Structure-Preserving Generative Modeling for Spatial Omics',
+          description: "BioFlow keeps histology-conditioned gene-expression trajectories within biologically valid support.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/bioflow/";
+            },},{id: "projects-why-does-generative-learning-help-deterministic-prediction",
+          title: 'Why Does Generative Learning Help Deterministic Prediction?',
+          description: "Understanding how target-side molecular signals reshape pathology representations.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/generative-representation-learning/";
+            },},{id: "projects-post-training-amp-searching-rna-foundation-models",
+          title: 'Post-training &amp;amp; Searching RNA Foundation Models',
+          description: "Diagnosing diversity collapse and using structural feedback to turn pretrained RNA generation into exact design.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/rna-foundation-models/";
+            },},{id: "projects-learning-shared-and-modality-specific-structure-in-spatial-multi-omics",
+          title: 'Learning Shared and Modality-Specific Structure in Spatial Multi-Omics',
+          description: "SpaMV disentangles shared biological structure from signals that are private to each spatial omics modality.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/spamv/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%78%68%72%32%30%32%33@%73%74%75.%73%63%75.%65%64%75.%63%6E", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/hrterry", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

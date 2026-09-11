@@ -1,0 +1,174 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Switching Codex between login quota and a custom API | Haron Xu </title> <meta name="author" content="Haoran (Haron) Xu"> <meta name="description" content="A small local profile switcher that changes provider configuration while keeping one shared Codex conversation history."> <meta name="keywords" content="generative models, biological foundation models, AI for science, computational biology, spatial omics, computational pathology"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 1040px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,600&amp;family=Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="https://hrterry.github.io/blog/2026/codex-builds-02-codex-profile-switching/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav sticky-bottom-footer"> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Haron Xu </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">About </a> </li> <li class="nav-item "> <a class="nav-link" href="/news/">News </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publication </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog <span class="sr-only">(current)</span> </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Switching Codex between login quota and a custom API</h1> <p class="post-meta"> Created on May 26, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/codex"> <i class="fa-solid fa-hashtag fa-sm"></i> codex</a>   <a href="/blog/tag/configuration"> <i class="fa-solid fa-hashtag fa-sm"></i> configuration</a>   <a href="/blog/tag/automation"> <i class="fa-solid fa-hashtag fa-sm"></i> automation</a>   ·   <a href="/blog/category/research-workflows"> <i class="fa-solid fa-tag fa-sm"></i> research-workflows</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>I wanted a boring switch: use Codex with the official login quota most of the time, then manually switch to a custom API profile when needed, without re-entering provider settings every time.</p> <p>The useful constraint is that both modes should share the same local history. I do not want two separate Codex homes, two sets of sessions, or a migration step every time I change providers. The switch should only change how future requests are routed.</p> <h2 id="the-key-idea">The key idea</h2> <p>Codex reads its active configuration from one file under the Codex home:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%USERPROFILE%\.codex\config.toml
+</code></pre></div></div> <p>Instead of editing that file by hand, keep two sanitized profile copies:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%USERPROFILE%\.codex\profiles\official.config.toml
+%USERPROFILE%\.codex\profiles\custom-api.config.toml
+</code></pre></div></div> <p>Switching profiles is just copying one of those files over the active <code class="language-plaintext highlighter-rouge">config.toml</code>. The rest of the Codex home remains untouched:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%USERPROFILE%\.codex\sessions
+%USERPROFILE%\.codex\session_index.jsonl
+%USERPROFILE%\.codex\history.jsonl
+</code></pre></div></div> <p>That is why chat history can stay shared. The switch changes provider configuration, not the directory where Codex stores conversations.</p> <h2 id="preparing-the-profiles">Preparing the profiles</h2> <p>First, save the currently working official-login configuration as the official profile:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.codex\profiles"
+Copy-Item "$env:USERPROFILE\.codex\config.toml" `
+  "$env:USERPROFILE\.codex\profiles\official.config.toml"
+</code></pre></div></div> <p>Then save the custom API configuration as a second profile:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Copy-Item "path\to\custom-api-config.toml" `
+  "$env:USERPROFILE\.codex\profiles\custom-api.config.toml"
+</code></pre></div></div> <p>Do not publish the real custom API profile. It may contain a private base URL, model names, account-specific settings, or environment assumptions that should stay local.</p> <h2 id="the-switching-script">The switching script</h2> <p>The switcher accepts <code class="language-plaintext highlighter-rouge">official</code>, <code class="language-plaintext highlighter-rouge">custom-api</code>, or <code class="language-plaintext highlighter-rouge">status</code>. Before overwriting the active config, it saves a timestamped backup.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>param(
+    [Parameter(Mandatory = $true, Position = 0)]
+    [ValidateSet("official", "custom-api", "status")]
+    [string] $Profile
+)
+
+$ErrorActionPreference = "Stop"
+
+$codexHome = Join-Path $HOME ".codex"
+$configPath = Join-Path $codexHome "config.toml"
+$profilesDir = Join-Path $codexHome "profiles"
+$backupDir = Join-Path $profilesDir "backups"
+
+$profiles = @{
+    official = Join-Path $profilesDir "official.config.toml"
+    "custom-api" = Join-Path $profilesDir "custom-api.config.toml"
+}
+
+if ($Profile -eq "status") {
+    Write-Host "Active config: $configPath"
+    exit 0
+}
+
+$sourcePath = $profiles[$Profile]
+if (!(Test-Path -LiteralPath $sourcePath)) {
+    throw "Profile config not found: $sourcePath"
+}
+
+New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
+
+if (Test-Path -LiteralPath $configPath) {
+    $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
+    $backupPath = Join-Path $backupDir "config.$stamp.toml"
+    Copy-Item -LiteralPath $configPath -Destination $backupPath -Force
+}
+
+Copy-Item -LiteralPath $sourcePath -Destination $configPath -Force
+Write-Host "Switched Codex profile to: $Profile"
+</code></pre></div></div> <p>Save it as:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%USERPROFILE%\.codex\switch-codex-profile.ps1
+</code></pre></div></div> <p>Then run:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell.exe -NoProfile -ExecutionPolicy Bypass `
+  -File "$env:USERPROFILE\.codex\switch-codex-profile.ps1" official
+
+powershell.exe -NoProfile -ExecutionPolicy Bypass `
+  -File "$env:USERPROFILE\.codex\switch-codex-profile.ps1" custom-api
+</code></pre></div></div> <h2 id="optional-double-click-wrappers">Optional double-click wrappers</h2> <p>For a manual workflow, small <code class="language-plaintext highlighter-rouge">.cmd</code> wrappers are enough. They avoid typing the PowerShell command each time.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@echo off
+powershell.exe -NoProfile -ExecutionPolicy Bypass ^
+  -File "%USERPROFILE%\.codex\switch-codex-profile.ps1" official
+pause
+
+@echo off
+powershell.exe -NoProfile -ExecutionPolicy Bypass ^
+  -File "%USERPROFILE%\.codex\switch-codex-profile.ps1" custom-api
+pause
+</code></pre></div></div> <p>After switching, restart Codex or open a new session so the app reads the new <code class="language-plaintext highlighter-rouge">config.toml</code>.</p> <h2 id="what-this-does-not-do">What this does not do</h2> <p>This is not a multi-account sync system. It does not merge remote server history, transfer billing state, or change authentication tokens. It only swaps the local provider configuration file used by Codex.</p> <p>The important safety rule is to keep one shared <code class="language-plaintext highlighter-rouge">CODEX_HOME</code>. If each profile launches Codex with a different home directory, then sessions will naturally split across those directories.</p> <h2 id="troubleshooting-missing-history">Troubleshooting missing history</h2> <p>If the sidebar appears to lose old conversations, first check whether the real session files still exist:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-ChildItem -Recurse -File "$env:USERPROFILE\.codex\sessions" |
+  Measure-Object
+</code></pre></div></div> <p>If there are many session files but only a few entries in <code class="language-plaintext highlighter-rouge">session_index.jsonl</code>, the problem is likely the local sidebar index rather than deleted conversations. Rebuilding the index from the session files restores the visible list while keeping the original conversations intact.</p> <p>The lesson is simple: profile switching should be scoped to <code class="language-plaintext highlighter-rouge">config.toml</code>. Conversation storage should remain shared, boring, and backed up.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/ai-agents-big-repo-memory/">Configuring AI agents for a big repository</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/chatgpt-powerpoint-microsoft365/">Using ChatGPT inside Microsoft PowerPoint</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/codex-builds-01-slideslive-pptx/">Rebuilding a hidden SlidesLive deck into a PPTX with Codex</a> </li> </ul> </div> </div> <footer class="sticky-bottom mt-5" role="contentinfo"> <div class="container"> © Copyright 2026 Haoran (Haron) Xu. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "About",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-news",
+          title: "News",
+          description: "Research updates from Haoran (Haron) Xu.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/news/";
+          },
+        },{id: "nav-publication",
+          title: "Publication",
+          description: "Research papers in generative modeling, spatial omics, and computational biology.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "Notes on research workflows, AI tools, and durable technical methods.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "projects-structure-preserving-generative-modeling-for-spatial-omics",
+          title: 'Structure-Preserving Generative Modeling for Spatial Omics',
+          description: "BioFlow keeps histology-conditioned gene-expression trajectories within biologically valid support.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/bioflow/";
+            },},{id: "projects-why-does-generative-learning-help-deterministic-prediction",
+          title: 'Why Does Generative Learning Help Deterministic Prediction?',
+          description: "Understanding how target-side molecular signals reshape pathology representations.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/generative-representation-learning/";
+            },},{id: "projects-post-training-amp-searching-rna-foundation-models",
+          title: 'Post-training &amp;amp; Searching RNA Foundation Models',
+          description: "Diagnosing diversity collapse and using structural feedback to turn pretrained RNA generation into exact design.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/rna-foundation-models/";
+            },},{id: "projects-learning-shared-and-modality-specific-structure-in-spatial-multi-omics",
+          title: 'Learning Shared and Modality-Specific Structure in Spatial Multi-Omics',
+          description: "SpaMV disentangles shared biological structure from signals that are private to each spatial omics modality.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/spamv/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%78%68%72%32%30%32%33@%73%74%75.%73%63%75.%65%64%75.%63%6E", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/hrterry", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Rebuilding a hidden SlidesLive deck into a PPTX with Codex | Haron Xu </title> <meta name="author" content="Haoran (Haron) Xu"> <meta name="description" content="Discovering a hidden slide manifest, rebuilding a deck, merging reveal frames, and preserving the workflow as a reusable skill."> <meta name="keywords" content="generative models, biological foundation models, AI for science, computational biology, spatial omics, computational pathology"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 1040px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,600&amp;family=Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="https://hrterry.github.io/blog/2026/codex-builds-01-slideslive-pptx/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav sticky-bottom-footer"> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Haron Xu </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">About </a> </li> <li class="nav-item "> <a class="nav-link" href="/news/">News </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publication </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog <span class="sr-only">(current)</span> </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Rebuilding a hidden SlidesLive deck into a PPTX with Codex</h1> <p class="post-meta"> Created on May 26, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/codex"> <i class="fa-solid fa-hashtag fa-sm"></i> codex</a>   <a href="/blog/tag/automation"> <i class="fa-solid fa-hashtag fa-sm"></i> automation</a>   <a href="/blog/tag/presentations"> <i class="fa-solid fa-hashtag fa-sm"></i> presentations</a>   ·   <a href="/blog/category/research-workflows"> <i class="fa-solid fa-tag fa-sm"></i> research-workflows</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>This is the first post in a small series on using Codex to finish concrete tasks and preserve the resulting workflow as reusable skills. The task this time was simple to state: download a SlidesLive deck from a page that does not provide a download button.</p> <p>The interesting part was not merely getting the file. It was turning a one-off exploration into a repeatable pattern: inspect the player, identify the hidden slide manifest, reconstruct the image URLs, rebuild a PPTX, compress incremental reveal frames, and save the whole method as a Codex skill.</p> <h2 id="the-target">The target</h2> <p>The input was a public SlidesLive talk page:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://slideslive.com/38935785/offline-reinforcement-learning-from-algorithms-to-practical-challenges
+</code></pre></div></div> <p>The desired output had four parts:</p> <ul> <li>a local PPTX that can be opened normally,</li> <li>high-resolution slide images,</li> <li>a compact version that removes incremental reveal frames,</li> <li>a reusable skill so the next deck does not require fresh exploration.</li> </ul> <h2 id="finding-the-hidden-manifest">Finding the hidden manifest</h2> <p>The ordinary SlidesLive page did not expose a download link, but the embedded player page did reveal what the browser preloads:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://slideslive.com/embed/presentation/38935785
+</code></pre></div></div> <p>Inside the embed HTML, the key asset was:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://s.slideslive.com/38935785/v7/slides.json?1650711788
+</code></pre></div></div> <p>This <code class="language-plaintext highlighter-rouge">slides.json</code> file lists the image slide names and timestamps. A typical entry looks like this:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "type": "image",
+  "image": {
+    "name": "6fbe2879-a5e1-4be8-8b66-5a850adfea6e__0-0002"
+  },
+  "time": 0
+}
+</code></pre></div></div> <p>The same page also exposes player configuration:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gon.hosts.slideslive_on_the_fly_resized_slides_host = "slideslive-slides.b-cdn.net"
+gon.use_bunny_cdn_for_player_image_slides = true
+</code></pre></div></div> <p>That was enough to stop guessing. The deck was being served as images, and the player script showed how to reconstruct the URLs.</p> <h2 id="reconstructing-image-urls">Reconstructing image URLs</h2> <p>The Bunny CDN URL pattern is:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://{slide_host}/{presentation_id}/slides/original/{image.name}.png?class={quality}
+</code></pre></div></div> <p>For example:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://slideslive-slides.b-cdn.net/38935785/slides/original/6fbe2879-a5e1-4be8-8b66-5a850adfea6e__0-0002.png?class=2160
+</code></pre></div></div> <p>One small but important detail: although the manifest mentions <code class="language-plaintext highlighter-rouge">big</code> and <code class="language-plaintext highlighter-rouge">medium</code>, the CDN accepted numeric classes such as <code class="language-plaintext highlighter-rouge">540</code>, <code class="language-plaintext highlighter-rouge">1080</code>, and <code class="language-plaintext highlighter-rouge">2160</code>. Requesting <code class="language-plaintext highlighter-rouge">class=big</code> returned a 403.</p> <h2 id="rebuilding-the-pptx">Rebuilding the PPTX</h2> <p>Once the slide images were downloaded, rebuilding the deck was straightforward. Each image became a full-slide background in a widescreen PPTX:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const pptx = new PptxGenJS();
+pptx.defineLayout({ name: "CUSTOM_WIDE", width: 13.333333, height: 7.5 });
+pptx.layout = "CUSTOM_WIDE";
+
+for (const file of slideImages) {
+  const slide = pptx.addSlide();
+  slide.background = { color: "FFFFFF" };
+  slide.addImage({ path: file, x: 0, y: 0, w: 13.333333, h: 7.5 });
+}
+</code></pre></div></div> <p>The resulting PPTX is visually faithful, but the text is not editable: SlidesLive exposes rasterized slide images, not the original PowerPoint source file.</p> <h2 id="merging-reveal-frames">Merging reveal frames</h2> <p>Lecture slides often advance in small increments: one bullet appears, then another formula, then an annotation. A raw export preserves every frame, but a reader usually wants the final, information-complete page.</p> <p>The merge pass compares adjacent images at a lower resolution and classifies changed pixels as:</p> <ul> <li> <code class="language-plaintext highlighter-rouge">added</code>: a previously blank region now contains content,</li> <li> <code class="language-plaintext highlighter-rouge">removed</code>: content disappeared into a blank region,</li> <li> <code class="language-plaintext highlighter-rouge">modified</code>: non-blank content changed color or shape.</li> </ul> <p>If the difference is mostly additive, with little removal or modification, the earlier frame is dropped and the later frame is kept. In this deck, the raw scrape produced 637 image frames. The compact version kept 97 slides.</p> <h2 id="the-reusable-skill">The reusable skill</h2> <p>The workflow is now packaged as a Codex skill called <code class="language-plaintext highlighter-rouge">slideslive-pptx</code>.</p> <p>It includes:</p> <ul> <li>the discovery path for SlidesLive embed pages,</li> <li>the hidden <code class="language-plaintext highlighter-rouge">slides.json</code> manifest pattern,</li> <li>the CDN URL reconstruction rule,</li> <li>a script for rebuilding PPTX files,</li> <li>a script for merging incremental reveal frames.</li> </ul> <p>That is the core pattern I want this series to capture: use Codex to solve the immediate task, then preserve the useful path so the next attempt starts from a better place.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/ai-agents-big-repo-memory/">Configuring AI agents for a big repository</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/chatgpt-powerpoint-microsoft365/">Using ChatGPT inside Microsoft PowerPoint</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/codex-builds-02-codex-profile-switching/">Switching Codex between login quota and a custom API</a> </li> </ul> </div> </div> <footer class="sticky-bottom mt-5" role="contentinfo"> <div class="container"> © Copyright 2026 Haoran (Haron) Xu. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "About",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-news",
+          title: "News",
+          description: "Research updates from Haoran (Haron) Xu.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/news/";
+          },
+        },{id: "nav-publication",
+          title: "Publication",
+          description: "Research papers in generative modeling, spatial omics, and computational biology.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "Notes on research workflows, AI tools, and durable technical methods.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "projects-structure-preserving-generative-modeling-for-spatial-omics",
+          title: 'Structure-Preserving Generative Modeling for Spatial Omics',
+          description: "BioFlow keeps histology-conditioned gene-expression trajectories within biologically valid support.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/bioflow/";
+            },},{id: "projects-why-does-generative-learning-help-deterministic-prediction",
+          title: 'Why Does Generative Learning Help Deterministic Prediction?',
+          description: "Understanding how target-side molecular signals reshape pathology representations.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/generative-representation-learning/";
+            },},{id: "projects-post-training-amp-searching-rna-foundation-models",
+          title: 'Post-training &amp;amp; Searching RNA Foundation Models',
+          description: "Diagnosing diversity collapse and using structural feedback to turn pretrained RNA generation into exact design.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/rna-foundation-models/";
+            },},{id: "projects-learning-shared-and-modality-specific-structure-in-spatial-multi-omics",
+          title: 'Learning Shared and Modality-Specific Structure in Spatial Multi-Omics',
+          description: "SpaMV disentangles shared biological structure from signals that are private to each spatial omics modality.",
+          section: "Projects",handler: () => {
+              window.location.href = "/research/spamv/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%78%68%72%32%30%32%33@%73%74%75.%73%63%75.%65%64%75.%63%6E", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/hrterry", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
