@@ -80,7 +80,12 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
       <span class="interest-visual-index">03</span>
       <h3>Pathology</h3>
     </header>
-    <div class="interest-visual-stage pathology-reel" aria-label="COAD TENX111 pathology representations completing one rotation every five seconds">
+    <div class="interest-visual-stage pathology-reel" aria-label="COAD TENX111 histology and pathology representations completing one rotation every five seconds">
+      <img
+        src="{{ '/assets/img/research-interests/pathology/tenx111-h-and-e.webp' | relative_url }}"
+        alt="Low-resolution H&E whole-slide image of COAD TENX111 tissue"
+        loading="eager"
+      >
       <img
         src="{{ '/assets/img/research-interests/pathology/genbio-pathfm.webp' | relative_url }}"
         alt="COAD TENX111 tissue represented by GenBio PathFM PCA colors"
@@ -113,12 +118,18 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
     </div>
   </article>
 
-  <article class="interest-visual-card interest-visual-card--empty">
+  <article class="interest-visual-card interest-visual-card--protein">
     <header>
       <span class="interest-visual-index">05</span>
       <h3>Protein Generation</h3>
     </header>
-    <div class="interest-visual-stage" aria-hidden="true"></div>
+    <div class="interest-visual-stage">
+      <img
+        src="{{ '/assets/img/research-interests/protein-generation/rfdiffusion-denoising.webp' | relative_url }}"
+        alt="A protein backbone emerging through the RFdiffusion denoising process"
+        loading="eager"
+      >
+    </div>
   </article>
 </div>
 
