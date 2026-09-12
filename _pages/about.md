@@ -123,12 +123,19 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
     root.dataset.initialized = "true";
 
     const sequence = [...root.dataset.rnaSequence];
+    const baseColors = {
+      A: "#137a5c",
+      U: "#6c4fb0",
+      G: "#b85f12",
+      C: "#2768a4",
+    };
     const grid = root.querySelector(".rna-token-grid");
     const fragment = document.createDocumentFragment();
     const tokens = sequence.map((base) => {
       const token = document.createElement("span");
       token.className = "rna-token";
       token.dataset.base = base;
+      token.style.setProperty("--rna-base-color", baseColors[base]);
       token.textContent = "×";
       fragment.appendChild(token);
       return token;

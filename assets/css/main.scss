@@ -502,31 +502,12 @@ a {
 .rna-token.is-provisional {
   background: color-mix(in srgb, currentColor 10%, var(--global-card-bg-color));
   border-color: color-mix(in srgb, currentColor 42%, transparent);
+  color: var(--rna-base-color);
   transform: scale(1);
 }
 
 .rna-token.is-provisional {
   opacity: 0.58;
-}
-
-.rna-token.is-decoded[data-base="A"],
-.rna-token.is-provisional[data-base="A"] {
-  color: #278c70;
-}
-
-.rna-token.is-decoded[data-base="U"],
-.rna-token.is-provisional[data-base="U"] {
-  color: #755eb1;
-}
-
-.rna-token.is-decoded[data-base="G"],
-.rna-token.is-provisional[data-base="G"] {
-  color: #bd7337;
-}
-
-.rna-token.is-decoded[data-base="C"],
-.rna-token.is-provisional[data-base="C"] {
-  color: #3f72ad;
 }
 
 @keyframes pathology-cycle-one {
