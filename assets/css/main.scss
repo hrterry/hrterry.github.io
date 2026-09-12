@@ -328,11 +328,34 @@ a {
 }
 
 .interest-visual-card {
+  --interest-accent: #6176c7;
+  --interest-accent-soft: #b86fa8;
+
   background: color-mix(in srgb, var(--global-card-bg-color) 92%, transparent);
   border: 1px solid var(--bio-border);
   border-radius: 16px;
   box-shadow: 0 16px 44px rgba(18, 68, 65, 0.08);
   overflow: hidden;
+}
+
+.interest-visual-card:nth-child(2) {
+  --interest-accent: #258f9e;
+  --interest-accent-soft: #72c7b0;
+}
+
+.interest-visual-card:nth-child(3) {
+  --interest-accent: #bf5f88;
+  --interest-accent-soft: #e6a568;
+}
+
+.interest-visual-card:nth-child(4) {
+  --interest-accent: #5369bd;
+  --interest-accent-soft: #78afd0;
+}
+
+.interest-visual-card:nth-child(5) {
+  --interest-accent: #328d72;
+  --interest-accent-soft: #8a74ba;
 }
 
 .interest-visual-card > header {
@@ -349,7 +372,7 @@ a {
 }
 
 .interest-visual-index {
-  color: var(--global-theme-color);
+  color: var(--interest-accent);
   font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -358,16 +381,46 @@ a {
 .interest-visual-stage {
   aspect-ratio: 1 / 1;
   background:
-    linear-gradient(color-mix(in srgb, var(--bio-border) 38%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--bio-border) 38%, transparent) 1px, transparent 1px),
-    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--bio-glow) 12%, transparent), transparent 68%);
+    linear-gradient(color-mix(in srgb, var(--interest-accent) 10%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--interest-accent) 10%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--interest-accent-soft) 18%, transparent), transparent 48%),
+    linear-gradient(145deg, color-mix(in srgb, var(--interest-accent) 5%, var(--global-card-bg-color)), var(--global-card-bg-color));
   background-size:
     28px 28px,
     28px 28px,
+    auto,
     auto;
   border-top: 1px solid var(--bio-border);
   overflow: hidden;
   position: relative;
+}
+
+.interest-visual-stage::before {
+  background: radial-gradient(circle, color-mix(in srgb, var(--interest-accent) 18%, transparent), transparent 68%);
+  border-radius: 50%;
+  content: "";
+  filter: blur(10px);
+  height: 72%;
+  left: -30%;
+  pointer-events: none;
+  position: absolute;
+  top: 42%;
+  width: 72%;
+}
+
+.interest-visual-card--empty .interest-visual-stage::after {
+  border: 1px solid color-mix(in srgb, var(--interest-accent) 16%, transparent);
+  border-radius: 50%;
+  bottom: -38%;
+  box-shadow:
+    0 0 0 12px color-mix(in srgb, var(--interest-accent-soft) 5%, transparent),
+    0 0 0 28px color-mix(in srgb, var(--interest-accent) 4%, transparent);
+  content: "";
+  height: 70%;
+  pointer-events: none;
+  position: absolute;
+  right: -26%;
+  width: 70%;
 }
 
 .interest-visual-card--gene .interest-visual-stage {
@@ -379,7 +432,9 @@ a {
 .interest-visual-card--gene .interest-visual-stage img {
   height: 100%;
   object-fit: contain;
+  position: relative;
   width: 100%;
+  z-index: 1;
 }
 
 .pathology-reel img {
@@ -390,7 +445,9 @@ a {
   min-width: 0;
   object-fit: contain;
   opacity: 0;
+  position: relative;
   width: 100%;
+  z-index: 1;
 }
 
 .pathology-reel {
