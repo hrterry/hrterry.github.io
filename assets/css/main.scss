@@ -429,6 +429,18 @@ a {
   justify-content: center;
 }
 
+.interest-visual-card--generative .interest-visual-stage {
+  display: flex;
+}
+
+.interest-visual-card--generative .interest-visual-stage img {
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
 .interest-visual-card--gene .interest-visual-stage img {
   height: 100%;
   object-fit: contain;

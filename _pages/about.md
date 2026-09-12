@@ -47,12 +47,18 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
 ## Research Interests
 
 <div class="interest-visual-grid">
-  <article class="interest-visual-card interest-visual-card--empty">
+  <article class="interest-visual-card interest-visual-card--generative">
     <header>
       <span class="interest-visual-index">01</span>
       <h3>Generative Models</h3>
     </header>
-    <div class="interest-visual-stage" aria-hidden="true"></div>
+    <div class="interest-visual-stage">
+      <img
+        src="{{ '/assets/img/research-interests/generative-models/denoising-5s.gif' | relative_url }}"
+        alt="A natural image emerging from noise through a generative denoising process"
+        loading="eager"
+      >
+    </div>
   </article>
 
   <article class="interest-visual-card interest-visual-card--gene">
