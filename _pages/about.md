@@ -125,7 +125,7 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
     </header>
     <div class="interest-visual-stage">
       <img
-        src="{{ '/assets/img/research-interests/protein-generation/rfdiffusion-denoising.webp' | relative_url }}"
+        src="{{ '/assets/img/research-interests/protein-generation/rfdiffusion-denoising.gif' | relative_url }}"
         alt="A protein backbone emerging through the RFdiffusion denoising process"
         loading="eager"
       >
