@@ -72,7 +72,7 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
   <article class="interest-visual-card interest-visual-card--pathology">
     <header>
       <span class="interest-visual-index">03</span>
-      <h3>Computational Pathology</h3>
+      <h3>Pathology</h3>
     </header>
     <div class="interest-visual-stage pathology-reel" aria-label="COAD TENX111 pathology representations completing one rotation every five seconds">
       <img
