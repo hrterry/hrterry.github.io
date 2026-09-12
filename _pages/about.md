@@ -46,23 +46,19 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
 
 ## Research Interests
 
-<div class="interest-list">
-  <span>Generative Models</span>
-  <span>Biological Foundation Models</span>
-  <span>RNA Design</span>
-  <span>Spatial Omics</span>
-  <span>Computational Pathology</span>
-  <span>Post-training & Inference-time Search</span>
-</div>
-
 <div class="interest-visual-grid">
+  <article class="interest-visual-card interest-visual-card--empty">
+    <header>
+      <span class="interest-visual-index">01</span>
+      <h3>Generative Models</h3>
+    </header>
+    <div class="interest-visual-stage" aria-hidden="true"></div>
+  </article>
+
   <article class="interest-visual-card interest-visual-card--gene">
     <header>
-      <div>
-        <span class="interest-visual-index">01</span>
-        <h3>Spatial Omics</h3>
-      </div>
-      <p>Gene-expression denoising</p>
+      <span class="interest-visual-index">02</span>
+      <h3>Spatial Omics</h3>
     </header>
     <div class="interest-visual-stage">
       <img
@@ -75,35 +71,42 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
 
   <article class="interest-visual-card interest-visual-card--pathology">
     <header>
-      <div>
-        <span class="interest-visual-index">02</span>
-        <h3>Computational Pathology</h3>
-      </div>
-      <p>Foundation-model feature space</p>
+      <span class="interest-visual-index">03</span>
+      <h3>Computational Pathology</h3>
     </header>
-    <div class="interest-visual-stage pathology-reel" aria-label="COAD TENX111 pathology representations rotating every five seconds">
-      <figure>
-        <img
-          src="{{ '/assets/img/research-interests/pathology/genbio-pathfm.webp' | relative_url }}"
-          alt="COAD TENX111 tissue represented by GenBio PathFM PCA colors"
-          loading="eager"
-        >
-      </figure>
-      <figure>
-        <img
-          src="{{ '/assets/img/research-interests/pathology/gigapath.webp' | relative_url }}"
-          alt="COAD TENX111 tissue represented by GigaPath PCA colors"
-          loading="lazy"
-        >
-      </figure>
-      <figure>
-        <img
-          src="{{ '/assets/img/research-interests/pathology/uni.webp' | relative_url }}"
-          alt="COAD TENX111 tissue represented by UNI PCA colors"
-          loading="lazy"
-        >
-      </figure>
+    <div class="interest-visual-stage pathology-reel" aria-label="COAD TENX111 pathology representations completing one rotation every five seconds">
+      <img
+        src="{{ '/assets/img/research-interests/pathology/genbio-pathfm.webp' | relative_url }}"
+        alt="COAD TENX111 tissue represented by GenBio PathFM PCA colors"
+        loading="eager"
+      >
+      <img
+        src="{{ '/assets/img/research-interests/pathology/gigapath.webp' | relative_url }}"
+        alt="COAD TENX111 tissue represented by GigaPath PCA colors"
+        loading="eager"
+      >
+      <img
+        src="{{ '/assets/img/research-interests/pathology/uni.webp' | relative_url }}"
+        alt="COAD TENX111 tissue represented by UNI PCA colors"
+        loading="eager"
+      >
     </div>
+  </article>
+
+  <article class="interest-visual-card interest-visual-card--empty">
+    <header>
+      <span class="interest-visual-index">04</span>
+      <h3>RNA Design</h3>
+    </header>
+    <div class="interest-visual-stage" aria-hidden="true"></div>
+  </article>
+
+  <article class="interest-visual-card interest-visual-card--empty">
+    <header>
+      <span class="interest-visual-index">05</span>
+      <h3>Protein Generation</h3>
+    </header>
+    <div class="interest-visual-stage" aria-hidden="true"></div>
   </article>
 </div>
 
