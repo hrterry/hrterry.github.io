@@ -337,6 +337,149 @@ a {
   padding: 0.42rem 0.68rem;
 }
 
+.interest-visual-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1.3rem 0 1.6rem;
+}
+
+.interest-visual-card {
+  background: color-mix(in srgb, var(--global-card-bg-color) 92%, transparent);
+  border: 1px solid var(--bio-border);
+  border-radius: 16px;
+  box-shadow: 0 16px 44px rgba(18, 68, 65, 0.08);
+  overflow: hidden;
+}
+
+.interest-visual-card > header {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1rem 1.05rem 0.85rem;
+}
+
+.interest-visual-card > header > div {
+  min-width: 0;
+}
+
+.interest-visual-card > header h3 {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.12rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0.15rem 0 0;
+}
+
+.interest-visual-card > header p {
+  color: var(--global-text-color-light);
+  font-size: 0.66rem;
+  line-height: 1.35;
+  margin: 0;
+  max-width: 9.5rem;
+  text-align: right;
+}
+
+.interest-visual-index {
+  color: var(--global-theme-color);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.interest-visual-stage {
+  aspect-ratio: 4 / 3;
+  background:
+    linear-gradient(color-mix(in srgb, var(--bio-border) 38%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--bio-border) 38%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--bio-glow) 12%, transparent), transparent 68%);
+  background-size:
+    28px 28px,
+    28px 28px,
+    auto;
+  border-top: 1px solid var(--bio-border);
+  overflow: hidden;
+  position: relative;
+}
+
+.interest-visual-card--gene .interest-visual-stage {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.interest-visual-card--gene .interest-visual-stage img {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.pathology-reel figure {
+  animation: pathology-cycle 5s infinite ease-in-out;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+}
+
+.pathology-reel figure:nth-child(1) {
+  animation-name: pathology-cycle-one;
+}
+
+.pathology-reel figure:nth-child(2) {
+  animation-name: pathology-cycle-two;
+}
+
+.pathology-reel figure:nth-child(3) {
+  animation-name: pathology-cycle-three;
+}
+
+.pathology-reel img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+@keyframes pathology-cycle-one {
+  0%,
+  30% {
+    opacity: 1;
+  }
+  34%,
+  96% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pathology-cycle-two {
+  0%,
+  30%,
+  67%,
+  100% {
+    opacity: 0;
+  }
+  34%,
+  63% {
+    opacity: 1;
+  }
+}
+
+@keyframes pathology-cycle-three {
+  0%,
+  63%,
+  100% {
+    opacity: 0;
+  }
+  67%,
+  96% {
+    opacity: 1;
+  }
+}
+
 .news-list {
   border-top: 1px solid var(--global-divider-color);
 }
@@ -345,7 +488,7 @@ a {
   border-bottom: 1px solid var(--global-divider-color);
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: 4.5rem 1fr;
+  grid-template-columns: 7.5rem 1fr;
   padding: 0.9rem 0;
 }
 
@@ -367,55 +510,69 @@ a {
   padding: 1.2rem 0;
 }
 
-.selected-work {
+.home-blog-grid {
   display: grid;
   gap: 0;
   grid-template-columns: 1fr 1fr;
   border-top: 1px solid var(--global-divider-color);
 }
 
-.selected-work > a {
+.home-blog-grid > a {
   border-bottom: 1px solid var(--global-divider-color);
   color: var(--global-text-color);
-  min-height: 175px;
+  display: flex;
+  flex-direction: column;
+  min-height: 230px;
   padding: 1.45rem 1.4rem 1.45rem 0;
   text-decoration: none;
 }
 
-.selected-work > a:nth-child(odd) {
+.home-blog-grid > a:nth-child(odd) {
   border-right: 1px solid var(--global-divider-color);
 }
 
-.selected-work > a:nth-child(even) {
+.home-blog-grid > a:nth-child(even) {
   padding-left: 1.4rem;
 }
 
-.selected-work > a:hover strong {
+.home-blog-grid > a:hover strong,
+.home-blog-grid > a:hover .blog-explore {
   color: var(--global-theme-color);
 }
 
-.selected-work strong {
+.home-blog-grid strong {
   display: block;
   font-family: "Newsreader", Georgia, serif;
-  font-size: 1.24rem;
+  font-size: 1.42rem;
   line-height: 1.3;
   margin: 0.48rem 0;
   transition: color 160ms ease;
 }
 
-.selected-work p {
+.home-blog-grid p {
   color: var(--global-text-color-light);
   font-size: 0.88rem;
   line-height: 1.55;
-  margin: 0;
+  margin: 0 0 1rem;
 }
 
-.work-status {
+.blog-kind {
   color: var(--global-theme-color);
   font-size: 0.67rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.blog-explore {
+  align-items: center;
+  color: var(--global-text-color);
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 700;
+  gap: 0.5rem;
+  margin-top: auto;
+  transition: color 160ms ease;
 }
 
 .cv-contact {
@@ -923,17 +1080,21 @@ footer {
     justify-content: center;
   }
 
-  .selected-work {
+  .interest-visual-grid {
     grid-template-columns: 1fr;
   }
 
-  .selected-work > a,
-  .selected-work > a:nth-child(even) {
+  .home-blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-blog-grid > a,
+  .home-blog-grid > a:nth-child(even) {
     min-height: 0;
     padding: 1.25rem 0;
   }
 
-  .selected-work > a:nth-child(odd) {
+  .home-blog-grid > a:nth-child(odd) {
     border-right: 0;
   }
 
@@ -1003,5 +1164,14 @@ footer {
 
   * {
     transition-duration: 0.01ms !important;
+  }
+
+  .pathology-reel figure {
+    animation: none;
+    opacity: 0;
+  }
+
+  .pathology-reel figure:first-child {
+    opacity: 1;
   }
 }
