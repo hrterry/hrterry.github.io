@@ -93,12 +93,18 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
     </div>
   </article>
 
-  <article class="interest-visual-card interest-visual-card--empty">
+  <article class="interest-visual-card interest-visual-card--rna">
     <header>
       <span class="interest-visual-index">04</span>
       <h3>RNA Design</h3>
     </header>
-    <div class="interest-visual-stage" aria-hidden="true"></div>
+    <div
+      class="interest-visual-stage rna-denoising"
+      data-rna-sequence="GGGACUUACGCAAGGUUACGUGCAAUCCGAGAGCUAUGGCCUACGUAA"
+      aria-label="Schematic discrete-diffusion decoding from masked tokens to an RNA sequence"
+    >
+      <div class="rna-token-grid" aria-hidden="true"></div>
+    </div>
   </article>
 
   <article class="interest-visual-card interest-visual-card--empty">
@@ -109,6 +115,62 @@ I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/
     <div class="interest-visual-stage" aria-hidden="true"></div>
   </article>
 </div>
+
+<script>
+  (() => {
+    const root = document.querySelector(".rna-denoising");
+    if (!root || root.dataset.initialized === "true") return;
+    root.dataset.initialized = "true";
+
+    const sequence = [...root.dataset.rnaSequence];
+    const grid = root.querySelector(".rna-token-grid");
+    const fragment = document.createDocumentFragment();
+    const tokens = sequence.map((base) => {
+      const token = document.createElement("span");
+      token.className = "rna-token";
+      token.dataset.base = base;
+      token.textContent = "×";
+      fragment.appendChild(token);
+      return token;
+    });
+    grid.appendChild(fragment);
+
+    const order = sequence.map((_, index) => index).sort((a, b) => ((a * 29) % sequence.length) - ((b * 29) % sequence.length));
+    const rank = new Map(order.map((index, position) => [index, position]));
+    const corrections = new Map([
+      [5, [900, 1250, "C"]],
+      [23, [1350, 1700, "A"]],
+      [42, [1800, 2150, "G"]],
+    ]);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const startedAt = performance.now();
+
+    const render = () => {
+      const elapsed = reducedMotion ? 3600 : (performance.now() - startedAt) % 5000;
+
+      tokens.forEach((token, index) => {
+        const revealAt = 550 + (rank.get(index) / (sequence.length - 1)) * 2700;
+        const correction = corrections.get(index);
+        let value = "×";
+        let state = "";
+
+        if (correction && elapsed >= correction[0] && elapsed < correction[1]) {
+          value = correction[2];
+          state = "is-provisional";
+        } else if (elapsed >= revealAt && elapsed < 4600) {
+          value = sequence[index];
+          state = "is-decoded";
+        }
+
+        if (token.textContent !== value) token.textContent = value;
+        token.className = `rna-token ${state}`.trim();
+      });
+    };
+
+    render();
+    if (!reducedMotion) window.setInterval(render, 80);
+  })();
+</script>
 
 My work asks how scientific structure and biological constraints should shape generative objectives, what cross-modal information these objectives encode, and how pretrained models can be adapted through feedback and verification. A longer account of these questions is available on the [Research page]({{ '/research/' | relative_url }}).
 

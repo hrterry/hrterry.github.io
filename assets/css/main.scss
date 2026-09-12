@@ -466,6 +466,69 @@ a {
   animation-name: pathology-cycle-three;
 }
 
+.rna-token-grid {
+  display: grid;
+  gap: 0.22rem;
+  grid-template-columns: repeat(8, 0.86rem);
+  inset: 0;
+  place-content: center;
+  position: absolute;
+  z-index: 1;
+}
+
+.rna-token {
+  align-items: center;
+  background: color-mix(in srgb, var(--global-card-bg-color) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--interest-accent) 18%, transparent);
+  border-radius: 3px;
+  color: color-mix(in srgb, var(--global-text-color-light) 38%, transparent);
+  display: inline-flex;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.52rem;
+  font-weight: 750;
+  height: 0.86rem;
+  justify-content: center;
+  line-height: 1;
+  transform: scale(0.88);
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
+  width: 0.86rem;
+}
+
+.rna-token.is-decoded,
+.rna-token.is-provisional {
+  background: color-mix(in srgb, currentColor 10%, var(--global-card-bg-color));
+  border-color: color-mix(in srgb, currentColor 42%, transparent);
+  transform: scale(1);
+}
+
+.rna-token.is-provisional {
+  opacity: 0.58;
+}
+
+.rna-token.is-decoded[data-base="A"],
+.rna-token.is-provisional[data-base="A"] {
+  color: #278c70;
+}
+
+.rna-token.is-decoded[data-base="U"],
+.rna-token.is-provisional[data-base="U"] {
+  color: #755eb1;
+}
+
+.rna-token.is-decoded[data-base="G"],
+.rna-token.is-provisional[data-base="G"] {
+  color: #bd7337;
+}
+
+.rna-token.is-decoded[data-base="C"],
+.rna-token.is-provisional[data-base="C"] {
+  color: #3f72ad;
+}
+
 @keyframes pathology-cycle-one {
   0%,
   30% {
