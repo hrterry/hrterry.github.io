@@ -2,14 +2,14 @@
 layout: page
 permalink: /blog/
 title: Blog
-description: Notes on research workflows, AI tools, and durable technical methods.
+description: Research positions, technical workflows, and notes on AI for science.
 nav: true
 nav_order: 3
 ---
 
 <div class="blog-intro">
   <p>
-    Notes from finished work: practical research workflows, tools I have tested, and methods worth preserving beyond a single project.
+    Research positions, questions behind ongoing work, practical workflows, and methods worth preserving beyond a single project.
   </p>
   <span>{{ site.posts | size }} essays and notes</span>
 </div>
