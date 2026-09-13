@@ -34,6 +34,30 @@ We can think of research as searching over this coupled space. The search operat
 
 Search, therefore, is not brute-force hyperparameter tuning. The most valuable search changes the method itself: its representation, objective, conditioning structure, training curriculum, or verification procedure. Domain knowledge defines which transformations are plausible. Empirical feedback determines which branches deserve continued attention.
 
+## A layered view of the research stack
+
+I find it useful to separate the construction of general-purpose intelligence from the construction of domain-specific models. Organizations such as OpenAI and Anthropic work primarily at the upper layer of this stack: they build frontier models with broad knowledge, generalization, reasoning, and tool-use capabilities. These models are not necessarily the final scientific models we want to deploy. They can instead serve as general research engines capable of helping us design those models.
+
+The connection between the two is not automatic. It passes through several layers:
+
+```text
+general-purpose frontier models
+              ↓
+             APIs
+              ↓
+research harnesses and iterative loops
+              ↓
+domain-specific models and methods
+```
+
+The API layer makes a general model programmable. It allows a research system to request reasoning, code generation, tool use, analysis, and structured decisions repeatedly rather than through isolated conversations. The harness layer then gives those calls continuity. It connects the model to a repository, an experimental environment, datasets, memory, evaluators, compute, and other agents. Most importantly, it closes the loop between a proposed method and evidence from an actual experiment.
+
+The output of this loop can be a much smaller and more specialized model. A spatial-omics model, pathology encoder, RNA generator, or protein design method does not need the breadth of a frontier language model. It needs the right representation, inductive biases, objective, data, and validation for its scientific task. The general model supplies flexible research capability; the harness converts that capability into sustained search; the domain model captures the solution eventually discovered by that search.
+
+This distinction also clarifies why access to a stronger API alone is not sufficient. Better reasoning at the top of the stack expands what is possible, but the harness determines whether that reasoning can accumulate across experiments. If the environment is unreliable, the evaluation is vague, or experimental state is repeatedly lost, improvements in the frontier model will be spent compensating for infrastructure rather than advancing the domain method.
+
+Human scientific judgment cuts across all four layers. Researchers decide which domain problem matters, which evidence is credible, and which constraints must remain invariant. The objective is not to remove the human from the stack. It is to let general models and research loops carry more of the combinatorial search while humans define and revise its scientific direction.
+
 ## Harnesses and recursive improvement are research infrastructure
 
 A harness is sometimes treated as a wrapper around a language model. For research, it should be understood more broadly. It is the infrastructure that connects reasoning to reliable action: repositories, environments, datasets, experiment launchers, evaluators, logs, memory, and rules for deciding what happens next.
