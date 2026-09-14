@@ -201,6 +201,7 @@ My work asks how scientific structure and biological constraints should shape ge
 ## News
 
 <div class="news-list">
+  <div><time datetime="2026-09-14">Sep 14, 2026</time><p>New personal essay: <a href="{{ '/blog/2026/on-the-eve-of-an-intelligence-explosion/' | relative_url }}"><strong>On the Eve of an Intelligence Explosion</strong></a> is here.</p></div>
   <div><time datetime="2026-09-10">Sep 10, 2026</time><p>New research blog: <a href="{{ '/blog/2026/domain-specific-model-design-as-search/' | relative_url }}"><strong>Domain-Specific Model Design as a Search Problem</strong></a> is here.</p></div>
   <div><time datetime="2026-06-13">Jun 13, 2026</time><p><strong>BioFlow</strong> was accepted to MICCAI 2026.</p></div>
   <div><time datetime="2026-05-12">May 12, 2026</time><p><strong>SpaMV</strong> was published in <em>Nature Communications</em>.</p></div>
