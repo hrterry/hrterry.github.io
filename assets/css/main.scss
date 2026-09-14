@@ -275,6 +275,33 @@ a {
   color: #263b35;
 }
 
+.post article .essay-pullquote {
+  background: linear-gradient(
+    110deg,
+    color-mix(in srgb, var(--global-theme-color) 10%, transparent),
+    color-mix(in srgb, var(--bio-glow) 5%, transparent)
+  );
+  border-left: 3px solid var(--global-theme-color);
+  border-radius: 0 16px 16px 0;
+  color: var(--global-text-color);
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-style: normal;
+  letter-spacing: -0.022em;
+  line-height: 1.38;
+  margin: 2.25rem 0 2.5rem;
+  padding: clamp(1.25rem, 3vw, 1.8rem) clamp(1.3rem, 3.5vw, 2.2rem);
+}
+
+.post article .essay-pullquote p {
+  margin: 0;
+}
+
+.post article .essay-pullquote strong {
+  color: var(--global-theme-color);
+  font-weight: 650;
+}
+
 .research-intro {
   border-left: 2px solid var(--bio-glow);
   font-size: 1rem;

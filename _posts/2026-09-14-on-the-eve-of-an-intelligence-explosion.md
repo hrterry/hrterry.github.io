@@ -115,7 +115,11 @@ Finally, I want to preserve the emotional lesson of this month. Ambition without
 
 ## A commitment, not a prophecy
 
-I do not know whether historians will call this period the eve of an intelligence explosion. I do know that the pace of change has already compressed my own intellectual history: within three university years, AI moved in my mind from a convenient tool, to a collaborator, to a research subject, to a source of fear, and finally to a mission.
+I do not know whether historians will call this period the eve of an intelligence explosion. I do know that the pace of change has already compressed my own intellectual history:
+
+<blockquote class="essay-pullquote">
+  <p>Within three university years, AI moved in my mind from <strong>a convenient tool</strong>, to <strong>a collaborator</strong>, to <strong>a research subject</strong>, to <strong>a source of fear</strong>, and finally to <strong>a mission</strong>.</p>
+</blockquote>
 
 That final transition is the most important one. I am no longer merely interested in AI. I want to work with the discipline and responsibility required to help build what comes next.
 
