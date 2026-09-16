@@ -34,7 +34,7 @@ I am an undergraduate researcher at **Sichuan University**, working on **generat
 
 My research spans biological sequence design, spatial omics, and computational pathology. I am particularly interested in structured generation, multimodal representation learning, and post-training scientific foundation models with verifiable biological feedback.
 
-I conduct research with [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/) at Yale University and Prof. Xiao Han at Sichuan University.
+I conduct research with [Prof. Xiao Han](https://scholar.google.com/citations?user=XGVV3gEAAAAJ) at Sichuan University and [Prof. Rex Ying](https://www.cs.yale.edu/homes/ying-rex/) at Yale University.
 
 </div>
 
