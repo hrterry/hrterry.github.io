@@ -201,6 +201,7 @@ My work asks how scientific structure and biological constraints should shape ge
 ## News
 
 <div class="news-list">
+  <div><time datetime="2026-09-25">Sep 25, 2026</time><p>My paper <a href="https://neurips.cc/virtual/2026/loc/sydney/poster/150617" rel="external nofollow noopener" target="_blank"><strong>When Does Flow Matching Help Deterministic Multimodal Prediction?</strong></a> was accepted to NeurIPS 2026.</p></div>
   <div><time datetime="2026-09-14">Sep 14, 2026</time><p>New personal essay: <a href="{{ '/blog/2026/on-the-eve-of-an-intelligence-explosion/' | relative_url }}"><strong>On the Eve of an Intelligence Explosion</strong></a> is here.</p></div>
   <div><time datetime="2026-09-10">Sep 10, 2026</time><p>New research blog: <a href="{{ '/blog/2026/domain-specific-model-design-as-search/' | relative_url }}"><strong>Domain-Specific Model Design as a Search Problem</strong></a> is here.</p></div>
   <div><time datetime="2026-06-13">Jun 13, 2026</time><p><strong>BioFlow</strong> was accepted to MICCAI 2026.</p></div>
