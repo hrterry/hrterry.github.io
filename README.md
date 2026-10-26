@@ -1,29 +1,26 @@
-# Haron Xu — Research Homepage
+# Haron Xu — research homepage
 
-Source code for [hrterry.github.io](https://hrterry.github.io), my research homepage on generative modeling, biological foundation models, and AI for scientific discovery.
+Source for [hrterry.github.io](https://hrterry.github.io). Next.js (App Router, static export) + TypeScript + Tailwind CSS + Motion.
 
-The site is built with Jekyll and the [al-folio](https://github.com/alshedivat/al-folio) academic theme, then customized with a project-level visual system and original site artwork.
+## Edit content
 
-## Site structure
+| What | Where |
+|---|---|
+| Profile, research interests, publications, open-source projects, news | `lib/data.ts` |
+| Blog posts | `content/posts/YYYY-MM-DD-slug.md` (front matter: `title`, `description`, `tags`, `categories`) → `/blog/YYYY/slug/` |
+| Research stories | `content/research/<slug>.md` → `/research/<slug>/` |
+| Images and files | `public/assets/...` → served at `/assets/...` |
+| Colours and type | `app/globals.css` (design tokens at the top) |
+| Hero animation | `components/HeroField.tsx` |
 
-- `_pages/about.md` — homepage and research overview
-- `_projects/` — research stories and project pages
-- `_bibliography/papers.bib` — publications
-- `_pages/cv.md` — curriculum vitae
-- `_posts/` — future research notes and essays
-- `assets/css/main.scss` — site-specific design system
-- `assets/img/` — personal and site artwork
-
-## Local development
-
-Install the Ruby dependencies, then run:
+## Run locally
 
 ```bash
-bundle exec jekyll serve
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static site in ./out
 ```
 
-Open `http://localhost:4000` in a browser. Pushing to `main` triggers the GitHub Pages deployment workflow.
+## Deploy
 
-## License and attribution
-
-Site content and personal images are © Haron Xu. The underlying theme retains its original license and attribution.
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes `./out` to the `gh-pages` branch served by GitHub Pages.
