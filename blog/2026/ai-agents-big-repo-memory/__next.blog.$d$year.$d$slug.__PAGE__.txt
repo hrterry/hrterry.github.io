@@ -1,0 +1,102 @@
+1:"$Sreact.fragment"
+3:"/_next/static/chunks/2dehmr1dn-xwp.js"
+4:"/_next/static/chunks/3asqi0gzv2wkf.js"
+5:I[42724,["$3","$4"],"default"]
+6:I[39756,["$3","$4"],"default"]
+7:I[37457,["$3","$4"],"default"]
+8:"/_next/static/chunks/38lywe_hle8ku.js"
+9:I[22016,["$3","$4","$8"],""]
+16:"ViewportBoundary"
+17:I[97367,["$3","$4"],"$16"]
+:HL["/_next/static/chunks/0f0v_8pyntsnf.css","style"]
+2:["$","style",null,{"children":"[data-reveal]{opacity:1!important;transform:none!important}"}]
+b:X
+e:X
+e:C
+13:[["children",{"s":"__PAGE__","h":160,"d":{"r":"$L14","p":"$@15","v":null,"s":"$b"}}]]
+11:[["children",{"s":{"n":"slug","t":"d","k":"ai-agents-big-repo-memory","s":[]},"h":65632,"d":{"r":["$","$1","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@12","v":"$e","s":"$b"},"c":"$Q13"}]]
+f:[["children",{"s":{"n":"year","t":"d","k":"2026","s":[]},"h":196704,"d":{"r":["$","$1","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@10","v":"$e","s":"$b"},"c":"$Q11"}]]
+c:[["children",{"s":"blog","h":131168,"d":{"r":["$","$1","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@d","v":"$e","s":"$b"},"c":"$Qf"}]]
+0:{"t":{"t":{"s":"","h":131152,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0f0v_8pyntsnf.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/2dehmr1dn-xwp.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/3asqi0gzv2wkf.js","async":true}]],["$","html",null,{"lang":"en","className":"Tx0qMG_variable u8MhCG_variable Gb1_vG_variable","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{var t=localStorage.getItem(\"theme\");if(t===\"light\"||t===\"dark\")document.documentElement.setAttribute(\"data-theme\",t)}catch(e){}"}}],["$","noscript",null,{"children":"$2"}]]}],["$","body",null,{"className":"min-h-dvh antialiased","children":[["$","a",null,{"href":"#main","className":"sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-ink focus:px-3 focus:py-2 focus:text-paper","children":"Skip to content"}],["$","$L5",null,{}],["$","main",null,{"id":"main","children":["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}],"notFound":[["$","section",null,{"className":"wrap grid min-h-[60vh] place-content-center py-24 text-center","children":[["$","p",null,{"className":"eyebrow","children":"404 · t = 1.00"}],["$","h1",null,{"className":"display mt-5 text-6xl md:text-7xl","children":"Still pure noise."}],["$","p",null,{"className":"mx-auto mt-5 max-w-md text-muted","children":"This page never denoised into anything. The homepage did."}],["$","p",null,{"className":"mt-8","children":["$","$L9",null,{"href":"/","className":"rounded-full bg-ink px-5 py-2.5 text-sm text-paper","children":"Back to the homepage"}]}]]}],[]]}]}],["$","footer",null,{"className":"mt-32 border-t border-line","children":[["$","div",null,{"className":"wrap grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]","children":[["$","div",null,{"children":[["$","p",null,{"className":"display text-3xl leading-tight md:text-4xl","children":["From noise ",["$","span",null,{"className":"italic text-accent","children":"to structure."}]]}],["$","p",null,{"className":"mt-3 max-w-sm text-sm text-muted","children":"Generative models for science, built to respect what biology already knows."}]]}],["$","div",null,{"className":"text-sm","children":[["$","p",null,{"className":"eyebrow mb-3","children":"Contact"}],["$","ul",null,{"className":"space-y-1.5","children":[["$","li",null,{"children":["$","a",null,{"className":"hover:text-accent","href":"mailto:xhr2023@stu.scu.edu.cn","children":"xhr2023@stu.scu.edu.cn"}]}],["$","li",null,{"children":["$","a",null,{"className":"hover:text-accent","href":"https://github.com/hrterry","target":"_blank","rel":"noopener","children":"github.com/hrterry"}]}]]}]]}],["$","div",null,{"className":"text-sm","children":[["$","p",null,{"className":"eyebrow mb-3","children":"Site"}],["$","ul",null,{"className":"grid grid-cols-2 gap-1.5","children":[["$","li","/research/",{"children":["$","$L9",null,{"className":"hover:text-accent","href":"/research/","children":"Research"}]}],["$","li","/publications/",{"children":["$","$L9",null,{"className":"hover:text-accent","href":"/publications/","children":"Publications"}]}],["$","li","/open-source/",{"children":["$","$L9",null,{"className":"hover:text-accent","href":"/open-source/","children":"Open source"}]}],["$","li","/blog/",{"children":["$","$L9",null,{"className":"hover:text-accent","href":"/blog/","children":"Writing"}]}],["$","li","/news/",{"children":["$","$L9",null,{"className":"hover:text-accent","href":"/news/","children":"News"}]}],["$","li","/cv/",{"children":["$","$L9",null,{"className":"hover:text-accent","href":"/cv/","children":"CV"}]}]]}]]}]]}],["$","div",null,{"className":"wrap flex flex-wrap justify-between gap-2 pb-10 text-xs text-muted","style":{"paddingBottom":"max(2.5rem, env(safe-area-inset-bottom, 0px))"},"children":[["$","span",null,{"children":["© ",2026," Haoran Xu"]}],["$","span",null,{"className":"font-mono","children":"Built with Next.js · hand-drawn canvas"}]]}]]}]]}]]}]]}],"p":"$@a","v":null,"s":"$b"},"c":"$Qc"},"h":{"r":["$","$1","h",{"children":[null,["$","$L17",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover"}],["$","meta","2",{"name":"theme-color","content":"#f3f4ef","media":"(prefers-color-scheme: light)"}],["$","meta","3",{"name":"theme-color","content":"#070f0e","media":"(prefers-color-scheme: dark)"}]]}],"$L18","$L19"]}],"p":"$@1a","v":null,"s":"$b"}},"a":"$@1b","u":"$@1c","b":"MrZSJOpC5f7ut-Jb9fHQj"}
+1d:I[23422,["$3","$4","$8"],"default"]
+22:"MetadataBoundary"
+23:I[97367,["$3","$4"],"$22"]
+24:"$Sreact.suspense"
+25:I[27201,["$3","$4"],"IconMark"]
+1e:T1a94,<p>The hardest part of using AI agents on a large repository is usually not code generation. It is state management: what has already been tried, which branch carries the current working version, which failure cases are real, and which settings have already been validated.</p>
+<p>When I try to reproduce other methods, the common failure mode is that information does not stay synchronized across sessions or across agents. Time is wasted re-reading work documents, re-summarizing branches, and re-discovering failure cases that were already known. People often ask whether a harness is the answer. My view is that a harness helps, but it is not the core solution.</p>
+<h2 id="the-real-bottleneck-is-stale-context">The real bottleneck is stale context</h2>
+<p>A big repo is not hard only because it contains many files. It is hard because the important context changes every day. The agent does not merely need repository content. It needs the current experimental state.</p>
+<p>That state usually includes:</p>
+<ul>
+<li>the active branch and why it exists,</li>
+<li>the current working summary,</li>
+<li>known failure cases and dead ends,</li>
+<li>validated settings, paths, commands, and tool choices,</li>
+<li>which results are provisional and which are trusted.</li>
+</ul>
+<p>If that information lives only in scattered chat transcripts or in the heads of human collaborators, the next agent session starts too close to zero.</p>
+<h2 id="what-helps-right-now">What helps right now</h2>
+<p>One system I found useful is simple daily logging. Antonia described a setup where progress is logged in markdown files in a <code>lab-notes</code> branch. That is valuable for two reasons. It helps humans look back on experiments, and it also gives the agent a compact memory source.</p>
+<p>A practical session-start routine is to have the agent review the last couple of lab notes before touching the code. That already gives much better context than asking it to scan the whole repository again.</p>
+<p>Another useful pattern is centralized result templates. If a large experiment needs consistent reporting, have one agent create the template first, then require all later agents to fill it in. A table in markdown is not glamorous, but it acts as a constraint: each new session knows what fields matter and what evidence is still missing.</p>
+<p>A minimal repository memory layer can be as boring as this:</p>
+<pre><code>lab-notes/
+  2026-07-04.md
+  2026-07-05.md
+  2026-07-06.md
+
+agent-state/
+  working-summary.md
+  failure-cases.md
+  validated-settings.md
+  result-template.md
+</code></pre>
+<p>This is already enough to avoid a large amount of duplicated summarization work.</p>
+<h2 id="why-harnesses-are-not-the-main-answer">Why harnesses are not the main answer</h2>
+<p>I have also been interested in harnesses such as Hermes Agent. They are useful for orchestration, but I have become more skeptical that they solve the main problem. One issue is speed: once model loading and framework overhead become noticeable, even a simple prompt feels too heavy.</p>
+<p>The deeper issue is prompt injection strategy. Persistent agent systems have to decide how much repository state to inject each time, what to keep in a database, and how to avoid clogging context with stale or low-value memory. This is still active research. The tools are interesting, but they do not remove the design problem.</p>
+<p>So if someone asks whether a harness manages the big repo for me, my answer is: only partially. A harness can schedule work and route tasks, but it does not automatically produce the right memory abstraction.</p>
+<h2 id="what-should-actually-be-cached">What should actually be cached</h2>
+<p>The cache should not be a raw dump of repository documents. That just moves the reading cost from one place to another. The useful cache is a distilled state representation that can become the next agent's real context.</p>
+<p>In practice, I want the cache to remember:</p>
+<ul>
+<li>the current goal and stopping condition,</li>
+<li>the last known good configuration,</li>
+<li>the commands or tools that are known to work in this repo,</li>
+<li>the failure cases that should not be retried blindly,</li>
+<li>the conclusion of solved subproblems, not just the raw trace.</li>
+</ul>
+<p>That last point matters. Memory should store the conclusion and the setting. If the agent already learned that a certain flag combination, environment assumption, or data path is wrong, the next session should inherit that fact directly instead of rediscovering it.</p>
+<h2 id="the-tool-layer-should-remember-too">The tool layer should remember too</h2>
+<p>Another weak point in many current systems is that tool memory is left to third-party open-source harnesses. That is a fragile place to keep something so central. If a repo repeatedly uses the same tools, the agent should not have to re-learn them from prompts and skills every time.</p>
+<p>If commonly used, repository-specific tools could be integrated more directly into the model product itself, a lot of wasted time would disappear. Right now many agents get trapped in a familiar loop: attempt, fail, escape the loop, rediscover context, try again. Better memory at the model and tool layer would cut that waste sharply.</p>
+<h2 id="where-i-think-this-should-go">Where I think this should go</h2>
+<p>My current view is that prompt libraries, skills, and harnesses are useful scaffolding, but they are not a satisfying long-term memory solution. The stronger direction is joint optimization:</p>
+<ul>
+<li>structured repository memory that persists across sessions,</li>
+<li>cached conclusions and validated settings instead of raw logs,</li>
+<li>tool-use memory closer to the model rather than bolted on outside,</li>
+<li>user-facing fine-tuning windows for stable, repeated workflows.</li>
+</ul>
+<p>I especially think ordinary users should eventually get a practical fine-tuning window for this kind of repeated work. The content worth adapting on is not the entire repository. It is the stable pattern of decisions: which tools are preferred, which settings are canonical, which failure modes are already settled, and what a correct solution looks like in this environment.</p>
+<h2 id="my-working-rule-for-big-repos">My working rule for big repos</h2>
+<p>Until those systems become better, I would keep the process simple: write daily logs, maintain one rolling summary, preserve a failure ledger, require structured result tables, and make every session end by updating those artifacts.</p>
+<p>That approach is less exciting than a fully autonomous persistent agent, but it is more reliable. For large repositories, reliability comes from making the next session start with the right compressed state, not from making the surrounding framework more elaborate.</p>14:["$","$1","c",{"children":[["$","article",null,{"children":[["$","$L1d",null,{}],["$","header",null,{"className":"wrap pb-10 pt-14 md:pt-24","children":[["$","$L9",null,{"href":"/blog/","className":"eyebrow hover:text-ink","children":"← Writing"}],["$","h1",null,{"className":"display mt-6 max-w-4xl text-[clamp(2.3rem,5vw,4.2rem)] leading-[1.04]","children":"Configuring AI agents for a big repository"}],["$","p",null,{"className":"mt-5 max-w-2xl text-lg text-muted","children":"Notes on stale context, durable repository memory, validated settings, failure cases, and the limits of orchestration harnesses."}],["$","p",null,{"className":"mt-6 font-mono text-xs text-muted","children":[["$","time",null,{"dateTime":"2026-07-06","children":"July 6, 2026"}]," · ",4," min read"," · ai-agents · memory · repositories"]}]]}],["$","div",null,{"className":"wrap","children":["$","div",null,{"className":"prose border-t border-line pt-10","dangerouslySetInnerHTML":{"__html":"$1e"}}]}],"$L1f"]}],["$L20"],"$L21"]}]
+18:["$","$L23",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$24",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Configuring AI agents for a big repository · Haron Xu"}],["$","meta","1",{"name":"description","content":"Notes on stale context, durable repository memory, validated settings, failure cases, and the limits of orchestration harnesses."}],["$","meta","2",{"name":"keywords","content":"generative models,biological foundation models,AI for science,spatial omics,computational pathology,RNA design"}],["$","meta","3",{"property":"og:title","content":"Configuring AI agents for a big repository"}],["$","meta","4",{"property":"og:description","content":"Notes on stale context, durable repository memory, validated settings, failure cases, and the limits of orchestration harnesses."}],["$","meta","5",{"property":"og:type","content":"article"}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"Configuring AI agents for a big repository"}],["$","meta","8",{"name":"twitter:description","content":"Notes on stale context, durable repository memory, validated settings, failure cases, and the limits of orchestration harnesses."}],["$","link","9",{"rel":"icon","href":"/assets/img/favicon.svg"}],["$","link","10",{"rel":"apple-touch-icon","href":"/assets/img/apple-touch-icon.png"}],["$","$L25","11",{}]]}]}],null]}]
+19:["$","meta",null,{"name":"next-size-adjust","content":""}]
+26:I[97367,["$3","$4"],"OutletBoundary"]
+b:300
+1f:["$","nav",null,{"className":"wrap mt-20 grid gap-4 md:grid-cols-2","aria-label":"More writing","children":[["$","$L9",null,{"href":"/blog/2026/chatgpt-powerpoint-microsoft365/","className":"group rounded-2xl border border-line bg-card p-6","children":[["$","p",null,{"className":"eyebrow","children":"Previous"}],["$","p",null,{"className":"display mt-2 text-2xl group-hover:text-accent","children":"Using ChatGPT inside Microsoft PowerPoint"}]]}],["$","$L9",null,{"href":"/blog/2026/domain-specific-model-design-as-search/","className":"group rounded-2xl border border-line bg-card p-6 md:col-start-2 md:text-right","children":[["$","p",null,{"className":"eyebrow","children":"Next"}],["$","p",null,{"className":"display mt-2 text-2xl group-hover:text-accent","children":"Domain-Specific Model Design as a Search Problem"}]]}]]}]
+20:["$","script","script-0",{"src":"/_next/static/chunks/38lywe_hle8ku.js","async":true}]
+21:["$","$L26",null,{"children":["$","$24",null,{"name":"Next.MetadataOutlet","children":"$@27"}]}]
+1c:true
+b:C
+27:null
+1b:0
+12:"$undefined"
+10:"$undefined"
+d:"$undefined"
+a:"$undefined"
+1a:"$undefined"
+15:"$undefined"
