@@ -1,7 +1,7 @@
 name: Deploy site
 
-# Builds the static Next.js export and commits ./out to the gh-pages branch
-# (the branch GitHub Pages already serves). Normal commits, no force-push.
+# Builds the static Next.js export and commits ./out to gh-pages:/docs
+# (Pages is configured to serve the docs/ folder of gh-pages). Normal commits, no force-push.
 on:
   push:
     branches: [main]
@@ -25,15 +25,16 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - name: Commit ./out to gh-pages
+      - name: Commit ./out to gh-pages/docs
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git clone --depth 1 --branch gh-pages "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" site
           cd site
           git rm -rq --ignore-unmatch .
-          cp -a ../out/. .
-          touch .nojekyll
+          mkdir -p docs
+          cp -a ../out/. docs/
+          touch .nojekyll docs/.nojekyll
           git add -A
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -q -m "Deploy ${GITHUB_SHA::7}"
