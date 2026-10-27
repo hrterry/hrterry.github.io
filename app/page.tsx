@@ -23,7 +23,7 @@ function SectionHead({ k, title, href, cta }: { k: string; title: string; href?:
 
 export default function Home() {
   const posts = listPosts().slice(0, 3);
-  const [neurips, bioflow, spamv] = publications;
+  const [hemera, neurips, bioflow, spamv] = publications;
   return (
     <>
       {/* Hero */}
@@ -50,8 +50,8 @@ export default function Home() {
 
       {/* Highlights ticker */}
       <section aria-label="Recent highlights" className="border-y border-line bg-paper-2/60">
-        <div className="wrap grid divide-line py-5 sm:grid-cols-3 sm:divide-x">
-          {[["NeurIPS 2026", "Flow matching for deterministic prediction"], ["MICCAI 2026", "BioFlow"], ["Nature Communications 2026", "SpaMV"]].map(([v, t]) => (
+        <div className="wrap grid divide-line py-5 sm:grid-cols-2 sm:divide-x lg:grid-cols-4">
+          {[["Hemera · 2026", "Pan-cancer pathology foundation model"], ["NeurIPS 2026", "Flow matching for deterministic prediction"], ["MICCAI 2026", "BioFlow"], ["Nature Communications 2026", "SpaMV"]].map(([v, t]) => (
             <div key={v} className="py-2 sm:px-6 first:sm:pl-0">
               <p className="font-mono text-xs uppercase tracking-widest text-accent">{v}</p>
               <p className="mt-1 text-sm">{t}</p>
@@ -90,15 +90,17 @@ export default function Home() {
 
       {/* Publications */}
       <section className="wrap pb-24 md:pb-32">
-        <SectionHead k="Selected publications" title="Published work." href="/publications/" cta="All publications" />
-        <Reveal className="mb-6 grid gap-6 rounded-2xl border border-line bg-card p-6 md:grid-cols-[auto_1fr] md:p-10">
-          <div className="font-mono text-xs uppercase tracking-widest text-accent">{neurips.venue} {neurips.year}</div>
-          <div>
-            <h3 className="display text-3xl leading-tight md:text-4xl">{neurips.title}</h3>
-            <p className="mt-4 max-w-3xl text-muted">{neurips.summary}</p>
-            <div className="mt-5 flex gap-3">{neurips.links.map((l) => <a key={l.href} href={l.href} target="_blank" rel="noopener" className="rounded-full border border-line px-4 py-1.5 text-sm hover:border-ink">{l.label} ↗</a>)}</div>
-          </div>
-        </Reveal>
+        <SectionHead k="Selected work" title="Published work." href="/publications/" cta="All publications" />
+        {[hemera, neurips].map((p) => (
+          <Reveal key={p.key} className="mb-6 grid gap-6 rounded-2xl border border-line bg-card p-6 md:grid-cols-[auto_1fr] md:p-10">
+            <div className="font-mono text-xs uppercase tracking-widest text-accent">{p.venue} {p.year}</div>
+            <div>
+              <h3 className="display text-3xl leading-tight md:text-4xl">{p.title}</h3>
+              <p className="mt-4 max-w-3xl text-muted">{p.summary}</p>
+              <div className="mt-5 flex gap-3">{p.links.map((l) => <a key={l.href} href={l.href} target="_blank" rel="noopener" className="rounded-full border border-line px-4 py-1.5 text-sm hover:border-ink">{l.label} ↗</a>)}</div>
+            </div>
+          </Reveal>
+        ))}
         <div className="grid gap-6 lg:grid-cols-2">
           {[bioflow, spamv].map((p, k) => (
             <Reveal key={p.key} delay={k * 0.08} className="flex flex-col rounded-2xl border border-line bg-card p-5 md:p-7">
